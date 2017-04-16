@@ -24,7 +24,7 @@ public class NetModule {
     @Provides
     @Singleton
     LoginRepository provideLoginRepository(AuthService authService, Context context){
-        return new DefaultLoginRepository(authService, context);
+        return new DefaultLoginRepository(authService);
     }
     @Provides
     @Singleton

@@ -1,5 +1,7 @@
 package eu.money.tracker.login.model;
 
+import android.support.annotation.NonNull;
+
 import eu.money.tracker.login.model.entity.Auth;
 import io.reactivex.Observer;
 
@@ -8,6 +10,6 @@ import io.reactivex.Observer;
  */
 
 public interface LoginRepository {
-    void login(String email, String password, AuthCallbacks.LoginCallback loginCallback);
-    void register(AuthCallbacks.RegisterCallback callback);
+    void login(@NonNull String email, @NonNull String password, @NonNull AuthCallbacks.LoginCallback loginCallback);
+    void register(@NonNull String email, @NonNull String password, @NonNull String nickname, AuthCallbacks.RegisterCallback callback);
 }
