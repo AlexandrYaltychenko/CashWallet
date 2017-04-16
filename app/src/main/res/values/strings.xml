@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MoneyTracker</string>
+    <string name="register_big">REGISTER</string>
+    <string name="sign_in_big">SIGN IN</string>
+    <string name="cancel_big">CANCEL</string>
+    <string name="enter_email">Enter email:</string>
+    <string name="enter_password">Enter password:</string>
+    <string name="sign_in_dialog">SIGN IN DIALOG</string>
+    <string name="enter_nickname">Enter nickname:</string>
 </resources>
