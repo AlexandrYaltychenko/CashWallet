@@ -5,5 +5,5 @@ package eu.cash.wallet.base;
  */
 
 public interface BaseView {
-    public void showToastMessage(String msg);
+    void showToastMessage(String msg);
 }

@@ -16,10 +16,9 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import eu.cash.wallet.MainActivity;
+import eu.cash.wallet.main.view.MainActivity;
 import eu.cash.wallet.MoneyTrackerApp;
 import eu.cash.wallet.R;
-import eu.cash.wallet.login.presenter.DefaultLoginPresenter;
 import eu.cash.wallet.login.presenter.LoginPresenter;
 
 /**
@@ -35,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ((MoneyTrackerApp)getApplicationContext()).getComponent().inject(this);
+        ((MoneyTrackerApp) getApplicationContext()).getComponent().inject(this);
         loginPresenter.attachView(this);
     }
 
@@ -58,7 +57,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         super.onBackPressed();
         loginPresenter.onBackPressed();
     }
@@ -93,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void displayLoginForm() {
         if (dialog != null) return;
-        final LoginDialogHolder loginDialogHolder = new LoginDialogHolder(getLayoutInflater().inflate(R.layout.login_dialog,null));
+        final LoginDialogHolder loginDialogHolder = new LoginDialogHolder(getLayoutInflater().inflate(R.layout.login_dialog, null));
         dialog = new MaterialStyledDialog.Builder(this)
                 .setStyle(Style.HEADER_WITH_TITLE)
                 .setTitle(R.string.sign_in_big)
@@ -132,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void displayRegisterForm() {
         if (dialog != null) return;
-        final RegisterDialogHolder registerDialogHolder = new RegisterDialogHolder(getLayoutInflater().inflate(R.layout.register_dialog,null));
+        final RegisterDialogHolder registerDialogHolder = new RegisterDialogHolder(getLayoutInflater().inflate(R.layout.register_dialog, null));
         dialog = new MaterialStyledDialog.Builder(this)
                 .setStyle(Style.HEADER_WITH_TITLE)
                 .setTitle(R.string.register_big)
@@ -181,12 +180,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         @BindView(R.id.password)
         EditText password;
         View view;
-        LoginDialogHolder(View view){
+
+        LoginDialogHolder(View view) {
             ButterKnife.bind(this, view);
             this.view = view;
         }
 
     }
+
     static class RegisterDialogHolder {
         @BindView(R.id.email)
         EditText email;
@@ -195,7 +196,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         @BindView(R.id.nickname)
         EditText nickname;
         View view;
-        RegisterDialogHolder(View view){
+
+        RegisterDialogHolder(View view) {
             ButterKnife.bind(this, view);
             this.view = view;
         }

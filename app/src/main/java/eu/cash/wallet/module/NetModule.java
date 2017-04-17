@@ -13,6 +13,8 @@ import eu.cash.wallet.login.model.AuthService;
 import eu.cash.wallet.login.model.ConfigService;
 import eu.cash.wallet.login.model.DefaultLoginRepository;
 import eu.cash.wallet.login.model.LoginRepository;
+import eu.cash.wallet.main.model.DefaultMainRepository;
+import eu.cash.wallet.main.model.MainRepository;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -28,6 +30,13 @@ public class NetModule {
     LoginRepository provideLoginRepository(AuthService authService, ConfigService configService, LocalDataRepository localDataRepository){
         return new DefaultLoginRepository(authService, configService, localDataRepository);
     }
+
+    @Provides
+    @Singleton
+    MainRepository provideMainRepository(){
+        return new DefaultMainRepository();
+    }
+
     @Provides
     @Singleton
     AuthService provideAuthService() {

@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 import eu.cash.wallet.login.presenter.DefaultLoginPresenter;
 import eu.cash.wallet.login.view.LoginActivity;
+import eu.cash.wallet.main.view.MainActivity;
 import eu.cash.wallet.module.AppModule;
 import eu.cash.wallet.module.NetModule;
 import eu.cash.wallet.module.PresenterModule;
@@ -16,5 +17,5 @@ import eu.cash.wallet.module.PresenterModule;
 @Singleton
 public interface AppComponent {
     void inject(LoginActivity loginActivity);
-
+    void inject(MainActivity mainActivity);
 }
