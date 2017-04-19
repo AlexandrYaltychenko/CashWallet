@@ -8,6 +8,9 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import eu.cash.wallet.LocalDataRepository;
+import eu.cash.wallet.home.model.HomeRepository;
+import eu.cash.wallet.home.presenter.DefaultHomePresenter;
+import eu.cash.wallet.home.presenter.HomePresenter;
 import eu.cash.wallet.login.model.LoginRepository;
 import eu.cash.wallet.login.presenter.DefaultLoginPresenter;
 import eu.cash.wallet.login.presenter.LoginPresenter;
@@ -31,5 +34,11 @@ public class PresenterModule {
     @Singleton
     public MainPresenter provideMainPresenter(Context context, MainRepository mainRepository){
         return new DefaultMainPresenter(context, mainRepository);
+    }
+    @Provides
+    @NonNull
+    @Singleton
+    public HomePresenter provideHomePresenter(Context context, HomeRepository homeRepository){
+        return new DefaultHomePresenter(context, homeRepository);
     }
 }

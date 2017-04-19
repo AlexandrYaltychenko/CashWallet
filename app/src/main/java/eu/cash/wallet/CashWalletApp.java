@@ -12,7 +12,7 @@ import eu.cash.wallet.module.AppModule;
  * Created by alexandr on 01.04.17.
  */
 
-public class MoneyTrackerApp extends Application {
+public class CashWalletApp extends Application {
     private AppComponent component;
     private Config config;
     public static final String BASE_URL = "http://appapi.eu/cash_wallet/web/";

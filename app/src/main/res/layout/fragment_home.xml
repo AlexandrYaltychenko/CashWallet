@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.ogaclejapan.arclayout.ArcLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:arc_origin="center"
+        app:arc_color="#00ffffff"
+        app:arc_radius="168dp"
+        app:arc_axisRadius="120dp"
+        app:arc_freeAngle="false"
+        app:arc_reverseAngle="false"
+        android:id="@+id/arcLayout">
+
+        <ImageButton
+            style="@style/Item.Tumblr"
+            android:padding="10dp"
+            android:id="@+id/logout"
+            android:scaleType="fitXY"
+            android:background="@drawable/tumblr_orange_oval"
+            android:src="@drawable/exit"
+            />
+
+        <ImageButton
+            style="@style/Item.Tumblr"
+            android:padding="10dp"
+            android:id="@+id/stats"
+            android:scaleType="fitXY"
+            android:background="@drawable/tumblr_blue_oval"
+            android:src="@drawable/stats"
+            />
+        <ImageButton
+            style="@style/Item.Tumblr"
+            android:padding="10dp"
+            android:id="@+id/add"
+            android:scaleType="fitXY"
+            android:background="@drawable/tumblr_red_oval"
+            android:src="@drawable/add"
+            />
+
+        <ImageButton
+            style="@style/Item.Tumblr"
+            android:padding="10dp"
+            android:id="@+id/faq"
+            android:scaleType="fitXY"
+            android:background="@drawable/tumblr_purple_oval"
+            android:src="@drawable/faq"
+            />
+        <ImageButton
+            style="@style/Item.Tumblr"
+            android:padding="10dp"
+            android:id="@+id/settings"
+            android:scaleType="fitXY"
+            android:background="@drawable/tumblr_grey_oval"
+            android:src="@drawable/settings"
+            />
+
+
+    </com.ogaclejapan.arclayout.ArcLayout>
+
+    <ImageButton
+        android:padding="10dp"
+        android:id="@+id/wallet"
+        android:scaleType="fitXY"
+        android:background="@drawable/tumblr_green_oval"
+        android:src="@drawable/wallet"
+        android:layout_centerInParent="true"
+        android:layout_width="128dp"
+        android:layout_height="128dp" />
+
+</RelativeLayout>

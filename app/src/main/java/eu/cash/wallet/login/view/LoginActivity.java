@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -16,8 +17,10 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
+import butterknife.OnClick;
 import eu.cash.wallet.main.view.MainActivity;
-import eu.cash.wallet.MoneyTrackerApp;
+import eu.cash.wallet.CashWalletApp;
 import eu.cash.wallet.R;
 import eu.cash.wallet.login.presenter.LoginPresenter;
 
@@ -34,7 +37,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ((MoneyTrackerApp) getApplicationContext()).getComponent().inject(this);
+        ((CashWalletApp) getApplicationContext()).getComponent().inject(this);
         loginPresenter.attachView(this);
     }
 
@@ -54,6 +57,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     public void onResume() {
         super.onResume();
         loginPresenter.onResume();
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        loginPresenter.onDestroy();
     }
 
     @Override
@@ -96,7 +105,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         dialog = new MaterialStyledDialog.Builder(this)
                 .setStyle(Style.HEADER_WITH_TITLE)
                 .setTitle(R.string.sign_in_big)
-
                 .setHeaderDrawable(R.drawable.dialog_header)
                 .setPositiveText(R.string.sign_in_big)
                 .setNeutralText(R.string.register_big)
@@ -113,7 +121,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         LoginActivity.this.dialog = null;
-                        loginPresenter.submitLoginForm(loginDialogHolder.email.getText().toString(), loginDialogHolder.password.getText().toString());
+                        loginPresenter.submitLoginForm(loginDialogHolder.email.getText().toString(), loginDialogHolder.password.getText().toString(), loginDialogHolder.remember.isChecked());
                     }
                 })
                 .onNeutral(new MaterialDialog.SingleButtonCallback() {
@@ -179,6 +187,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         EditText email;
         @BindView(R.id.password)
         EditText password;
+        @BindView(R.id.remember)
+        CheckBox remember;
         View view;
 
         LoginDialogHolder(View view) {
@@ -196,6 +206,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         @BindView(R.id.nickname)
         EditText nickname;
         View view;
+
 
         RegisterDialogHolder(View view) {
             ButterKnife.bind(this, view);

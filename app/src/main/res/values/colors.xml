@@ -7,4 +7,11 @@
     <color name="white">#ffffff</color>
     <color name="gray">#636363</color>
     <color name="drawer">#0098cf</color>
+    <color name="tumblr_orange">#F2992E</color>
+    <color name="tumblr_purple">#9717bc</color>
+    <color name="tumblr_green">#90c750</color>
+    <color name="tumblr_white">#FFFFFF</color>
+    <color name="tumblr_grey">#748089</color>
+    <color name="tumblr_blue">#4AA8D8</color>
+    <color name="tumblr_red">#D95E40</color>
 </resources>

@@ -1,14 +1,15 @@
 package eu.cash.wallet.module;
 
-import android.content.Context;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import eu.cash.wallet.LocalDataRepository;
-import eu.cash.wallet.MoneyTrackerApp;
+import eu.cash.wallet.CashWalletApp;
 import eu.cash.wallet.StringConverterFactory;
+import eu.cash.wallet.home.model.DefaultHomeRepository;
+import eu.cash.wallet.home.model.HomeRepository;
+import eu.cash.wallet.home.model.HomeService;
 import eu.cash.wallet.login.model.AuthService;
 import eu.cash.wallet.login.model.ConfigService;
 import eu.cash.wallet.login.model.DefaultLoginRepository;
@@ -39,16 +40,36 @@ public class NetModule {
 
     @Provides
     @Singleton
+    HomeRepository provideHomeRepository(HomeService homeService){
+        return new DefaultHomeRepository(homeService);
+    }
+
+    @Provides
+    @Singleton
     AuthService provideAuthService() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         return (new Retrofit.Builder()
-                .baseUrl(MoneyTrackerApp.BASE_URL)
+                .baseUrl(CashWalletApp.BASE_URL)
                 .client(client)
                 .addConverterFactory(StringConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()).create(AuthService.class);
+    }
+
+    @Provides
+    @Singleton
+    HomeService provideHomeService() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        return (new Retrofit.Builder()
+                .baseUrl(CashWalletApp.BASE_URL)
+                .client(client)
+                .addConverterFactory(StringConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()).create(HomeService.class);
     }
 
     @Provides
@@ -58,7 +79,7 @@ public class NetModule {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         return (new Retrofit.Builder()
-                .baseUrl(MoneyTrackerApp.BASE_URL)
+                .baseUrl(CashWalletApp.BASE_URL)
                 .client(client)
                 .addConverterFactory(StringConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

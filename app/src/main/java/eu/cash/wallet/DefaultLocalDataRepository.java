@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import javax.inject.Inject;
 
@@ -28,10 +29,11 @@ public class DefaultLocalDataRepository implements LocalDataRepository {
         if (authToken == null)
             return null;
         long exp = sharedPreferences.getLong("exp", 0);
-        if (exp == 0 || exp < (System.currentTimeMillis()-3600)/1000)
+        if (exp == 0 || exp < (System.currentTimeMillis()-3600000)/1000) {
             return null;
+        }
         Auth auth = new Auth(authToken, exp);
-        return null;
+        return auth;
     }
 
     @Override

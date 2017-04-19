@@ -2,13 +2,12 @@ package eu.cash.wallet.login.presenter;
 
 
 import android.content.Context;
-import android.os.Build;
 import android.util.Log;
 
 import javax.inject.Inject;
 
 import eu.cash.wallet.LocalDataRepository;
-import eu.cash.wallet.MoneyTrackerApp;
+import eu.cash.wallet.CashWalletApp;
 import eu.cash.wallet.login.model.callback.AuthCallbacks;
 import eu.cash.wallet.login.model.LoginRepository;
 import eu.cash.wallet.login.model.callback.ConfigCallback;
@@ -40,7 +39,9 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
     }
 
     @Override
-    public void submitLoginForm(String email, String password) {
+    public void submitLoginForm(String email, String password, boolean save) {
+        if (save)
+            localDataRepository.saveCredentials(email, password);
         loginRepository.login(email, password, this);
         Log.d("TEST", "LOGIN email = " + email + " password = " + password);
     }
@@ -71,8 +72,14 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
     }
 
     @Override
+    public void onDestroy() {
+        loginView = null;
+    }
+
+    @Override
     public void onAuthenticationSucceed(Auth auth) {
         Log.d("TEST", "TOKEN GOT = " + auth.getToken());
+        localDataRepository.saveAuthToken(auth.getToken(),auth.getExp());
         loginView.goNext();
     }
 
@@ -95,8 +102,18 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
     public void onConfigFetched(Config config) {
         Log.d("TEST", "CONFIG = " + config.isPromoShown());
         this.config = config;
-        ((MoneyTrackerApp)context.getApplicationContext()).setConfig(config);
-        loginView.displayLoginForm();
+        ((CashWalletApp)context.getApplicationContext()).setConfig(config);
+        if (localDataRepository.getAuthToken() != null) {
+            loginView.goNext();
+            Log.d("TEST","CONTINUING WITH STORED TOKEN");
+        }
+        else
+        if (localDataRepository.getCredentials() != null) {
+            loginRepository.login(localDataRepository.getCredentials().getEmail(), localDataRepository.getCredentials().getPassword(), this);
+            Log.d("TEST","SIGNING IN WITH STORED CREDENTIALS");
+        }
+        else
+            loginView.displayLoginForm();
     }
 
     @Override

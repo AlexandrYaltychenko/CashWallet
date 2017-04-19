@@ -1,31 +1,27 @@
 package eu.cash.wallet.main.view;
 
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-import com.balysv.materialmenu.MaterialMenu;
-import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialize.util.UIUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import eu.cash.wallet.MoneyTrackerApp;
+import eu.cash.wallet.CashWalletApp;
 import eu.cash.wallet.R;
+import eu.cash.wallet.home.view.HomeFragment;
 import eu.cash.wallet.main.presenter.MainPresenter;
 
 /**
@@ -45,8 +41,27 @@ public class MainActivity extends AppCompatActivity implements MainView, Drawer.
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        ((MoneyTrackerApp) getApplicationContext()).getComponent().inject(this);
+        ((CashWalletApp) getApplicationContext()).getComponent().inject(this);
         mainPresenter.attachView(this);
+        toolbar.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fade_in));
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        mainPresenter.onResume();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        mainPresenter.onPause();
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        mainPresenter.onDestroy();
     }
 
 
@@ -83,7 +98,11 @@ public class MainActivity extends AppCompatActivity implements MainView, Drawer.
 
     @Override
     public void goHome() {
-
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.container, HomeFragment.newInstance());
+        transaction.setCustomAnimations(R.anim.slide_out_right, R.anim.slide_in_left, R.anim.back_slide_in_left, R.anim.back_slide_out_right);
+        transaction.commit();
     }
 
     @Override

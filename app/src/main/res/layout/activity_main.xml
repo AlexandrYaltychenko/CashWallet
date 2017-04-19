@@ -24,7 +24,7 @@
 
         <!-- the layout which will be the content of the activity (which will be hosted inside the drawer (NOT the list of the drawer)) -->
         <FrameLayout
-            android:id="@+id/frame_container"
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
