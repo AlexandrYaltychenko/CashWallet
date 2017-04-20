@@ -6,12 +6,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -19,9 +23,11 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import eu.cash.wallet.CashWalletApp;
 import eu.cash.wallet.R;
 import eu.cash.wallet.home.view.HomeFragment;
+import eu.cash.wallet.home.view.event.NavigateEvent;
 import eu.cash.wallet.main.presenter.MainPresenter;
 
 /**
@@ -33,6 +39,20 @@ public class MainActivity extends AppCompatActivity implements MainView, Drawer.
     private HeaderHolder headerHolder;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.menu)
+    ViewGroup menu;
+    @BindView(R.id.home_icon)
+    ImageView homeIcon;
+    @BindView(R.id.accounts_icon)
+    ImageView accountsIcon;
+    @BindView(R.id.settings_icon)
+    ImageView settingsIcon;
+    @BindView(R.id.home_caption)
+    TextView homeCaption;
+    @BindView(R.id.accounts_caption)
+    TextView accountsCaption;
+    @BindView(R.id.settings_caption)
+    TextView settingsCaption;
     @Inject
     MainPresenter mainPresenter;
 
@@ -43,23 +63,25 @@ public class MainActivity extends AppCompatActivity implements MainView, Drawer.
         setSupportActionBar(toolbar);
         ((CashWalletApp) getApplicationContext()).getComponent().inject(this);
         mainPresenter.attachView(this);
-        toolbar.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fade_in));
+        toolbar.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
+        menu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         mainPresenter.onResume();
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         mainPresenter.onPause();
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         mainPresenter.onDestroy();
     }
@@ -103,6 +125,45 @@ public class MainActivity extends AppCompatActivity implements MainView, Drawer.
         transaction.replace(R.id.container, HomeFragment.newInstance());
         transaction.setCustomAnimations(R.anim.slide_out_right, R.anim.slide_in_left, R.anim.back_slide_in_left, R.anim.back_slide_out_right);
         transaction.commit();
+    }
+
+    @Override
+    public void setState(NavigationTarget navigationTarget) {
+        homeCaption.setTextColor(getResources().getColor(R.color.gray));
+        settingsCaption.setTextColor(getResources().getColor(R.color.gray));
+        accountsCaption.setTextColor(getResources().getColor(R.color.gray));
+        homeIcon.setImageResource(R.drawable.home_1);
+        accountsIcon.setImageResource(R.drawable.money_1);
+        settingsIcon.setImageResource(R.drawable.settings_1);
+        switch (navigationTarget) {
+            case HOME:
+                homeIcon.setImageResource(R.drawable.home_2);
+                homeCaption.setTextColor(getResources().getColor(R.color.primary));
+                break;
+            case ACCOUNTS:
+                accountsIcon.setImageResource(R.drawable.money_2);
+                accountsCaption.setTextColor(getResources().getColor(R.color.primary));
+                break;
+            case SETTINGS:
+                settingsIcon.setImageResource(R.drawable.settings_2);
+                settingsCaption.setTextColor(getResources().getColor(R.color.primary));
+                break;
+        }
+    }
+
+    @OnClick(R.id.home_button)
+    public void onHomeButtonClick(){
+        EventBus.getDefault().post(new NavigateEvent(NavigationTarget.HOME));
+    }
+
+    @OnClick(R.id.accounts_button)
+    public void onAccountsButtonClick(){
+        EventBus.getDefault().post(new NavigateEvent(NavigationTarget.ACCOUNTS));
+    }
+
+    @OnClick(R.id.settings_button)
+    public void onSettingsButtonClick(){
+        EventBus.getDefault().post(new NavigateEvent(NavigationTarget.SETTINGS));
     }
 
     @Override

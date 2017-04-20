@@ -8,9 +8,11 @@ import javax.inject.Inject;
 
 import eu.cash.wallet.LocalDataRepository;
 import eu.cash.wallet.CashWalletApp;
+import eu.cash.wallet.home.model.entity.Me;
 import eu.cash.wallet.login.model.callback.AuthCallbacks;
 import eu.cash.wallet.login.model.LoginRepository;
 import eu.cash.wallet.login.model.callback.ConfigCallback;
+import eu.cash.wallet.login.model.callback.UserInfoCallback;
 import eu.cash.wallet.login.model.entity.Auth;
 import eu.cash.wallet.login.model.entity.Config;
 import eu.cash.wallet.login.view.LoginView;
@@ -19,7 +21,9 @@ import eu.cash.wallet.login.view.LoginView;
  * Created by alexandr on 01.04.17.
  */
 
-public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.LoginCallback, AuthCallbacks.RegisterCallback, ConfigCallback {
+public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.LoginCallback,
+        AuthCallbacks.RegisterCallback, ConfigCallback,
+        UserInfoCallback{
     private LoginRepository loginRepository;
     private LoginView loginView;
     private LocalDataRepository localDataRepository;
@@ -80,7 +84,6 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
     public void onAuthenticationSucceed(Auth auth) {
         Log.d("TEST", "TOKEN GOT = " + auth.getToken());
         localDataRepository.saveAuthToken(auth.getToken(),auth.getExp());
-        loginView.goNext();
     }
 
     @Override
@@ -104,7 +107,7 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
         this.config = config;
         ((CashWalletApp)context.getApplicationContext()).setConfig(config);
         if (localDataRepository.getAuthToken() != null) {
-            loginView.goNext();
+            loginRepository.getUserInfo(localDataRepository.getAuthToken().getToken(),this);
             Log.d("TEST","CONTINUING WITH STORED TOKEN");
         }
         else
@@ -114,6 +117,11 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
         }
         else
             loginView.displayLoginForm();
+    }
+
+    @Override
+    public void onUserInfoFetched(Me me) {
+        loginView.goNext();
     }
 
     @Override

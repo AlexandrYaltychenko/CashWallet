@@ -5,71 +5,152 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.ogaclejapan.arclayout.ArcLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:arc_origin="center"
-        app:arc_color="#00ffffff"
-        app:arc_radius="168dp"
-        app:arc_axisRadius="120dp"
-        app:arc_freeAngle="false"
-        app:arc_reverseAngle="false"
-        android:id="@+id/arcLayout">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-        <ImageButton
-            style="@style/Item.Tumblr"
-            android:padding="10dp"
-            android:id="@+id/logout"
-            android:scaleType="fitXY"
-            android:background="@drawable/tumblr_orange_oval"
-            android:src="@drawable/exit"
-            />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:id="@+id/header">
 
-        <ImageButton
-            style="@style/Item.Tumblr"
-            android:padding="10dp"
-            android:id="@+id/stats"
-            android:scaleType="fitXY"
-            android:background="@drawable/tumblr_blue_oval"
-            android:src="@drawable/stats"
-            />
-        <ImageButton
-            style="@style/Item.Tumblr"
-            android:padding="10dp"
-            android:id="@+id/add"
-            android:scaleType="fitXY"
-            android:background="@drawable/tumblr_red_oval"
-            android:src="@drawable/add"
-            />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp" />
 
-        <ImageButton
-            style="@style/Item.Tumblr"
-            android:padding="10dp"
-            android:id="@+id/faq"
-            android:scaleType="fitXY"
-            android:background="@drawable/tumblr_purple_oval"
-            android:src="@drawable/faq"
-            />
-        <ImageButton
-            style="@style/Item.Tumblr"
-            android:padding="10dp"
-            android:id="@+id/settings"
-            android:scaleType="fitXY"
-            android:background="@drawable/tumblr_grey_oval"
-            android:src="@drawable/settings"
-            />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="128dp">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    app:srcCompat="@drawable/account_card"
+                    android:id="@+id/icon"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/icon">
+
+                    <TextView
+                        android:text="TOTAL BALANCE"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView8"
+                        android:textColor="#fff"
+                        android:layout_margin="2dp" />
+
+                    <TextView
+                        android:text="1.000.000 $"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView7"
+                        android:textColor="#fff"
+                        android:layout_margin="2dp"
+                        android:textSize="24sp" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+
+            <com.ogaclejapan.arclayout.ArcLayout
+                android:layout_width="match_parent"
+                app:arc_origin="center"
+                app:arc_color="#00ffffff"
+                app:arc_radius="96dp"
+                app:arc_axisRadius="96dp"
+                app:arc_freeAngle="false"
+                app:arc_reverseAngle="false"
+                android:id="@+id/arcLayout"
+                android:layout_centerInParent="true"
+                android:layout_height="256dp">
+
+                <ImageButton
+                    android:padding="10dp"
+                    android:id="@+id/logout"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/tumblr_orange_oval"
+                    android:src="@drawable/exit"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
+
+                <ImageButton
+                    android:padding="10dp"
+                    android:id="@+id/stats"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/tumblr_blue_oval"
+                    android:src="@drawable/stats"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
+                <ImageButton
+                    android:padding="10dp"
+                    android:id="@+id/add"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/tumblr_red_oval"
+                    android:src="@drawable/add"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
+
+                <ImageButton
+                    android:padding="10dp"
+                    android:id="@+id/faq"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/tumblr_purple_oval"
+                    android:src="@drawable/faq"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
+                <ImageButton
+                    android:padding="10dp"
+                    android:id="@+id/sync"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/tumblr_aqua_oval"
+                    android:src="@drawable/sync"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
+                <ImageButton
+                    android:padding="10dp"
+                    android:id="@+id/settings"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/tumblr_grey_oval"
+                    android:src="@drawable/settings"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
 
 
-    </com.ogaclejapan.arclayout.ArcLayout>
+            </com.ogaclejapan.arclayout.ArcLayout>
 
-    <ImageButton
-        android:padding="10dp"
-        android:id="@+id/wallet"
-        android:scaleType="fitXY"
-        android:background="@drawable/tumblr_green_oval"
-        android:src="@drawable/wallet"
-        android:layout_centerInParent="true"
-        android:layout_width="128dp"
-        android:layout_height="128dp" />
+            <ImageButton
+                android:padding="10dp"
+                android:id="@+id/wallet"
+                android:scaleType="fitXY"
+                android:background="@drawable/tumblr_green_oval"
+                android:src="@drawable/wallet"
+                android:layout_centerInParent="true"
+                android:layout_width="96dp"
+                android:layout_height="96dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -14,4 +14,6 @@
     <color name="tumblr_grey">#748089</color>
     <color name="tumblr_blue">#4AA8D8</color>
     <color name="tumblr_red">#D95E40</color>
+    <color name="gray_background">#eeeeee</color>
+    <color name="aqua">#00a79d</color>
 </resources>

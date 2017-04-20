@@ -21,6 +21,7 @@ import eu.cash.wallet.CashWalletApp;
 import eu.cash.wallet.R;
 import eu.cash.wallet.home.presenter.HomePresenter;
 import eu.cash.wallet.home.view.event.NavigateEvent;
+import eu.cash.wallet.main.view.NavigationTarget;
 
 /**
  * Created by alexandr on 17.04.17.
@@ -29,6 +30,8 @@ import eu.cash.wallet.home.view.event.NavigateEvent;
 public class HomeFragment extends Fragment implements HomeView{
     @BindView(R.id.arcLayout)
     ArcLayout arcLayout;
+    @BindView(R.id.header)
+    View header;
     @Inject
     HomePresenter homePresenter;
     public static HomeFragment newInstance() {
@@ -42,6 +45,7 @@ public class HomeFragment extends Fragment implements HomeView{
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this,rootView);
+        header.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
         ((CashWalletApp)getContext().getApplicationContext()).getComponent().inject(this);
         return rootView;
     }
@@ -74,7 +78,7 @@ public class HomeFragment extends Fragment implements HomeView{
     @OnClick(R.id.logout)
     public void onClick(){
         Log.d("TEST","POSTED NAVIGATE EVENT!");
-        EventBus.getDefault().post(new NavigateEvent(NavigateEvent.Target.CLOSE));
+        EventBus.getDefault().post(new NavigateEvent(NavigationTarget.CLOSE));
     }
 
 }

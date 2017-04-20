@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import eu.cash.wallet.home.view.event.NavigateEvent;
 import eu.cash.wallet.main.model.MainRepository;
 import eu.cash.wallet.main.view.MainView;
+import eu.cash.wallet.main.view.NavigationTarget;
 
 /**
  * Created by alexandr on 17.04.17.
@@ -56,6 +57,7 @@ public class DefaultMainPresenter implements MainPresenter {
         this.mainView = mainView;
         this.mainView.buildDrawer(mainRepository.getDrawerItems());
         this.mainView.goHome();
+        this.mainView.setState(NavigationTarget.HOME);
         EventBus.getDefault().register(this);
         Log.d("TEST","MAIN VIEW ATTACHED");
     }
@@ -63,6 +65,7 @@ public class DefaultMainPresenter implements MainPresenter {
     @Override
     public void onNavigate(NavigateEvent navigateEvent) {
         Log.d("TEST","EVENT BUS TRANSMITTED EVENT! ");
+        mainView.setState(navigateEvent.getTarget());
         switch (navigateEvent.getTarget()){
             case CLOSE: System.exit(0);
         }

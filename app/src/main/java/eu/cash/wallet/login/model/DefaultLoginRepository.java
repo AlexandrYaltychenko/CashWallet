@@ -5,8 +5,10 @@ import android.os.Build;
 import javax.inject.Inject;
 
 import eu.cash.wallet.LocalDataRepository;
+import eu.cash.wallet.home.model.response.MeResponse;
 import eu.cash.wallet.login.model.callback.AuthCallbacks;
 import eu.cash.wallet.login.model.callback.ConfigCallback;
+import eu.cash.wallet.login.model.callback.UserInfoCallback;
 import eu.cash.wallet.login.model.entity.Auth;
 import eu.cash.wallet.login.model.entity.Config;
 import eu.cash.wallet.login.model.response.AuthResponse;
@@ -79,6 +81,22 @@ public class DefaultLoginRepository implements LoginRepository {
             @Override
             public void onFailure(Call<ConfigResponse> call, Throwable t) {
                 callback.onConnectionError();
+            }
+        });
+    }
+
+    @Override
+    public void getUserInfo(String token, final UserInfoCallback userInfoCallback) {
+        Call<MeResponse> call = authService.getMe(token);
+        call.enqueue(new Callback<MeResponse>() {
+            @Override
+            public void onResponse(Call<MeResponse> call, Response<MeResponse> response) {
+                userInfoCallback.onUserInfoFetched(response.body().getMe());
+            }
+
+            @Override
+            public void onFailure(Call<MeResponse> call, Throwable t) {
+                userInfoCallback.onConnectionError();
             }
         });
     }
