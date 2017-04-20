@@ -32,8 +32,8 @@ public class PresenterModule {
     @Provides
     @NonNull
     @Singleton
-    public MainPresenter provideMainPresenter(Context context, MainRepository mainRepository){
-        return new DefaultMainPresenter(context, mainRepository);
+    public MainPresenter provideMainPresenter(Context context, MainRepository mainRepository, LocalDataRepository localDataRepository){
+        return new DefaultMainPresenter(context, mainRepository, localDataRepository);
     }
     @Provides
     @NonNull

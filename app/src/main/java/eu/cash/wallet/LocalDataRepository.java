@@ -2,6 +2,7 @@ package eu.cash.wallet;
 
 import android.support.annotation.NonNull;
 
+import eu.cash.wallet.home.model.entity.Me;
 import eu.cash.wallet.login.model.entity.Auth;
 import eu.cash.wallet.login.model.entity.Credentials;
 
@@ -16,5 +17,7 @@ public interface LocalDataRepository {
     void saveCredentials(@NonNull String email, @NonNull String password);
     void clearToken();
     void clearCredentials();
+    void saveUserInfo(Me me);
+    Me getUserInfo();
 
 }

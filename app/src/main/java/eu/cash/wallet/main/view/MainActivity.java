@@ -107,11 +107,11 @@ public class MainActivity extends AppCompatActivity implements MainView, Drawer.
                 .withActivity(this)
                 .withRootView(R.id.drawer_container)
                 .withToolbar(toolbar)
+                .withHeader(header)
                 .withActionBarDrawerToggle(true)
                 .withActionBarDrawerToggleAnimated(true)
                 .withShowDrawerOnFirstLaunch(true)
                 .withDisplayBelowStatusBar(false)
-                .withHeader(header)
                 .withSliderBackgroundColorRes(R.color.primary)
                 .withDrawerItems(list)
                 .build();

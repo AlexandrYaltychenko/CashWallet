@@ -8,6 +8,7 @@ import android.util.Log;
 
 import javax.inject.Inject;
 
+import eu.cash.wallet.home.model.entity.Me;
 import eu.cash.wallet.login.model.entity.Auth;
 import eu.cash.wallet.login.model.entity.Credentials;
 
@@ -17,6 +18,7 @@ import eu.cash.wallet.login.model.entity.Credentials;
 
 public class DefaultLocalDataRepository implements LocalDataRepository {
     private Context context;
+    private Me me;
 
     @Inject public DefaultLocalDataRepository(Context context) {
         this.context = context;
@@ -81,5 +83,15 @@ public class DefaultLocalDataRepository implements LocalDataRepository {
                 .putString("email",null)
                 .putString("password",null)
                 .apply();
+    }
+
+    @Override
+    public void saveUserInfo(Me me) {
+        this.me = me;
+    }
+
+    @Override
+    public Me getUserInfo() {
+        return me;
     }
 }

@@ -84,6 +84,7 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
     public void onAuthenticationSucceed(Auth auth) {
         Log.d("TEST", "TOKEN GOT = " + auth.getToken());
         localDataRepository.saveAuthToken(auth.getToken(),auth.getExp());
+        loginRepository.getUserInfo(auth.getToken(),this);
     }
 
     @Override
@@ -121,6 +122,7 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
 
     @Override
     public void onUserInfoFetched(Me me) {
+        localDataRepository.saveUserInfo(me);
         loginView.goNext();
     }
 
