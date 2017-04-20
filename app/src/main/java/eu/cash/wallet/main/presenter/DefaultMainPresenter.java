@@ -1,10 +1,8 @@
 package eu.cash.wallet.main.presenter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -20,12 +18,11 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import eu.cash.wallet.LocalDataRepository;
+import eu.cash.wallet.GlobalDataRepository;
 import eu.cash.wallet.R;
 import eu.cash.wallet.account.model.entity.Account;
 import eu.cash.wallet.home.model.entity.Me;
 import eu.cash.wallet.home.view.event.NavigateEvent;
-import eu.cash.wallet.login.model.entity.Config;
 import eu.cash.wallet.login.model.entity.Currency;
 import eu.cash.wallet.main.model.MainRepository;
 import eu.cash.wallet.main.view.MainDrawer;
@@ -38,15 +35,15 @@ import eu.cash.wallet.main.view.NavigationTarget;
 
 public class DefaultMainPresenter implements MainPresenter {
     private MainRepository mainRepository;
-    private LocalDataRepository localDataRepository;
+    private GlobalDataRepository globalDataRepository;
     private Context context;
     private MainView mainView;
     private MainDrawer mainDrawer;
 
     @Inject
-    public DefaultMainPresenter(Context context, MainRepository mainRepository, LocalDataRepository localDataRepository) {
+    public DefaultMainPresenter(Context context, MainRepository mainRepository, GlobalDataRepository globalDataRepository) {
         this.mainRepository = mainRepository;
-        this.localDataRepository = localDataRepository;
+        this.globalDataRepository = globalDataRepository;
         this.context = context;
     }
 
@@ -83,7 +80,7 @@ public class DefaultMainPresenter implements MainPresenter {
         EventBus.getDefault().register(this);
         this.mainDrawer.buildDrawer(generateMenuList());
         calcTotal();
-        this.mainDrawer.updateDrawerHeader(localDataRepository.getUserInfo(),localDataRepository.getConfig());
+        this.mainDrawer.updateDrawerHeader(globalDataRepository.getUserInfo(), globalDataRepository.getConfig());
         this.mainView.goHome();
         this.mainView.setState(NavigationTarget.HOME);
         Log.d("TEST", "MAIN VIEW ATTACHED");
@@ -93,7 +90,7 @@ public class DefaultMainPresenter implements MainPresenter {
         List<IDrawerItem> drawerItems = new ArrayList<IDrawerItem>();
         List<IDrawerItem> menu = mainRepository.getDrawerItems();
         drawerItems.add(0, new SectionDrawerItem().withName(R.string.accounts).withTextColorRes(R.color.gray_drawer).withDivider(false));
-        Me me = localDataRepository.getUserInfo();
+        Me me = globalDataRepository.getUserInfo();
         for (Account account : me.getAccountList())
             drawerItems.add(1, new PrimaryDrawerItem()
                     .withName(account.getTitle())
@@ -106,19 +103,18 @@ public class DefaultMainPresenter implements MainPresenter {
     }
 
     private void calcTotal(){
-        Me me = localDataRepository.getUserInfo();
+        Me me = globalDataRepository.getUserInfo();
         Map<String, Double> exRates = new HashMap<>();
-        for (Currency currency : localDataRepository.getConfig().getCurrencyList())
+        for (Currency currency : globalDataRepository.getConfig().getCurrencyList())
             exRates.put(currency.getName(),currency.getExRate());
         double total = 0;
         for (Account account : me.getAccountList()) {
             Double rate = exRates.get(account.getCurrency());
             if (rate == null)
                 continue;
-            total += account.getAmount() * rate;
+            total += account.getAmount() / rate;
         }
         me.setTotal(total);
-        localDataRepository.saveUserInfo(me);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

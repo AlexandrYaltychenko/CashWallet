@@ -4,14 +4,14 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import eu.cash.wallet.LocalDataRepository;
+import eu.cash.wallet.GlobalDataRepository;
 import eu.cash.wallet.CashWalletApp;
+import eu.cash.wallet.GlobalDataService;
 import eu.cash.wallet.StringConverterFactory;
 import eu.cash.wallet.home.model.DefaultHomeRepository;
 import eu.cash.wallet.home.model.HomeRepository;
 import eu.cash.wallet.home.model.HomeService;
 import eu.cash.wallet.login.model.AuthService;
-import eu.cash.wallet.login.model.ConfigService;
 import eu.cash.wallet.login.model.DefaultLoginRepository;
 import eu.cash.wallet.login.model.LoginRepository;
 import eu.cash.wallet.main.model.DefaultMainRepository;
@@ -28,8 +28,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetModule {
     @Provides
     @Singleton
-    LoginRepository provideLoginRepository(AuthService authService, ConfigService configService, LocalDataRepository localDataRepository){
-        return new DefaultLoginRepository(authService, configService, localDataRepository);
+    LoginRepository provideLoginRepository(AuthService authService, GlobalDataRepository globalDataRepository){
+        return new DefaultLoginRepository(authService, globalDataRepository);
     }
 
     @Provides
@@ -74,7 +74,7 @@ public class NetModule {
 
     @Provides
     @Singleton
-    ConfigService provideConfigService() {
+    GlobalDataService provideGlobalDataService() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
@@ -83,7 +83,7 @@ public class NetModule {
                 .client(client)
                 .addConverterFactory(StringConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .build()).create(ConfigService.class);
+                .build()).create(GlobalDataService.class);
     }
 
 }

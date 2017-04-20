@@ -2,28 +2,39 @@ package eu.cash.wallet;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import javax.inject.Inject;
 
 import eu.cash.wallet.home.model.entity.Me;
+import eu.cash.wallet.home.model.response.MeResponse;
+import eu.cash.wallet.login.model.callback.ConfigCallback;
+import eu.cash.wallet.login.model.callback.UserInfoCallback;
 import eu.cash.wallet.login.model.entity.Auth;
 import eu.cash.wallet.login.model.entity.Config;
 import eu.cash.wallet.login.model.entity.Credentials;
+import eu.cash.wallet.login.model.entity.Currency;
+import eu.cash.wallet.login.model.response.ConfigResponse;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by alexandr on 16.04.17.
  */
 
-public class DefaultLocalDataRepository implements LocalDataRepository {
+public class DefaultGlobalDataRepository implements GlobalDataRepository {
     private Context context;
     private Config config;
     private Me me;
+    private GlobalDataService globalDataService;
 
-    @Inject public DefaultLocalDataRepository(Context context) {
+    @Inject
+    public DefaultGlobalDataRepository(Context context, GlobalDataService globalDataService) {
         this.context = context;
+        this.globalDataService = globalDataService;
     }
 
     @Override
@@ -88,19 +99,57 @@ public class DefaultLocalDataRepository implements LocalDataRepository {
     }
 
     @Override
-    public void saveUserInfo(Me me) {
-        this.me = me;
+    public void loadConfig(final ConfigCallback callback) {
+        Call<ConfigResponse> call = globalDataService
+                .getConfig(Build.VERSION.SDK_INT);
+        call.enqueue(new Callback<ConfigResponse>() {
+            @Override
+            public void onResponse(Call<ConfigResponse> call, Response<ConfigResponse> response) {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                config = response.body().getConfig();
+                config.setDefaultTotalCurrency(sharedPreferences.getString("def_cur","USD"));
+                callback.onConfigFetched(config);
+            }
+
+            @Override
+            public void onFailure(Call<ConfigResponse> call, Throwable t) {
+                callback.onConnectionError();
+            }
+        });
     }
+
+    @Override
+    public void loadUserInfo(String token, final UserInfoCallback userInfoCallback) {
+        Call<MeResponse> call = globalDataService.getMe(token);
+        call.enqueue(new Callback<MeResponse>() {
+            @Override
+            public void onResponse(Call<MeResponse> call, Response<MeResponse> response) {
+                userInfoCallback.onUserInfoFetched(me = response.body().getMe());
+            }
+
+            @Override
+            public void onFailure(Call<MeResponse> call, Throwable t) {
+                userInfoCallback.onConnectionError();
+            }
+        });
+    }
+
+    @Override
+    public Currency getDefaultCurrency() {
+        if (config == null)
+            throw new RuntimeException("Called get Default Currency before Config was fetched!");
+        for (Currency currency : config.getCurrencyList())
+            if (currency.getName().equals(config.getDefaultTotalCurrency()))
+                return currency;
+        return null;
+    }
+
 
     @Override
     public Me getUserInfo() {
         return me;
     }
 
-    @Override
-    public void saveConfig(Config config) {
-        this.config = config;
-    }
 
     @Override
     public Config getConfig() {

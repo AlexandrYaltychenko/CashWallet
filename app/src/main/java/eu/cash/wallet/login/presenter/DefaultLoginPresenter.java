@@ -6,8 +6,7 @@ import android.util.Log;
 
 import javax.inject.Inject;
 
-import eu.cash.wallet.LocalDataRepository;
-import eu.cash.wallet.CashWalletApp;
+import eu.cash.wallet.GlobalDataRepository;
 import eu.cash.wallet.home.model.entity.Me;
 import eu.cash.wallet.login.model.callback.AuthCallbacks;
 import eu.cash.wallet.login.model.LoginRepository;
@@ -26,15 +25,15 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
         UserInfoCallback{
     private LoginRepository loginRepository;
     private LoginView loginView;
-    private LocalDataRepository localDataRepository;
+    private GlobalDataRepository globalDataRepository;
     private Context context;
     private Config config;
 
     @Inject
-    public DefaultLoginPresenter(Context context, LoginRepository loginRepository, LocalDataRepository localDataRepository) {
+    public DefaultLoginPresenter(Context context, LoginRepository loginRepository, GlobalDataRepository globalDataRepository) {
         this.context = context;
         this.loginRepository = loginRepository;
-        this.localDataRepository = localDataRepository;
+        this.globalDataRepository = globalDataRepository;
     }
 
     @Override
@@ -45,7 +44,7 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
     @Override
     public void submitLoginForm(String email, String password, boolean save) {
         if (save)
-            localDataRepository.saveCredentials(email, password);
+            globalDataRepository.saveCredentials(email, password);
         loginRepository.login(email, password, this);
         Log.d("TEST", "LOGIN email = " + email + " password = " + password);
     }
@@ -67,7 +66,7 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
 
     @Override
     public void onResume() {
-        loginRepository.getConfig(this);
+        globalDataRepository.loadConfig(this);
     }
 
     @Override
@@ -83,8 +82,8 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
     @Override
     public void onAuthenticationSucceed(Auth auth) {
         Log.d("TEST", "TOKEN GOT = " + auth.getToken());
-        localDataRepository.saveAuthToken(auth.getToken(),auth.getExp());
-        loginRepository.getUserInfo(auth.getToken(),this);
+        globalDataRepository.saveAuthToken(auth.getToken(),auth.getExp());
+        globalDataRepository.loadUserInfo(auth.getToken(),this);
     }
 
     @Override
@@ -106,14 +105,13 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
     public void onConfigFetched(Config config) {
         Log.d("TEST", "CONFIG = " + config.isPromoShown());
         this.config = config;
-        localDataRepository.saveConfig(config);
-        if (localDataRepository.getAuthToken() != null) {
-            loginRepository.getUserInfo(localDataRepository.getAuthToken().getToken(),this);
+        if (globalDataRepository.getAuthToken() != null) {
+            globalDataRepository.loadUserInfo(globalDataRepository.getAuthToken().getToken(),this);
             Log.d("TEST","CONTINUING WITH STORED TOKEN");
         }
         else
-        if (localDataRepository.getCredentials() != null) {
-            loginRepository.login(localDataRepository.getCredentials().getEmail(), localDataRepository.getCredentials().getPassword(), this);
+        if (globalDataRepository.getCredentials() != null) {
+            loginRepository.login(globalDataRepository.getCredentials().getEmail(), globalDataRepository.getCredentials().getPassword(), this);
             Log.d("TEST","SIGNING IN WITH STORED CREDENTIALS");
         }
         else
@@ -122,7 +120,6 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
 
     @Override
     public void onUserInfoFetched(Me me) {
-        localDataRepository.saveUserInfo(me);
         loginView.goNext();
     }
 

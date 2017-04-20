@@ -7,8 +7,9 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import eu.cash.wallet.DefaultLocalDataRepository;
-import eu.cash.wallet.LocalDataRepository;
+import eu.cash.wallet.DefaultGlobalDataRepository;
+import eu.cash.wallet.GlobalDataRepository;
+import eu.cash.wallet.GlobalDataService;
 
 /**
  * Created by alexandr on 01.04.17.
@@ -29,8 +30,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public LocalDataRepository provideLocalDataRepository(Context context){
-        return new DefaultLocalDataRepository(context);
+    public GlobalDataRepository provideLocalDataRepository(Context context, GlobalDataService globalDataService){
+        return new DefaultGlobalDataRepository(context, globalDataService);
     }
 
 

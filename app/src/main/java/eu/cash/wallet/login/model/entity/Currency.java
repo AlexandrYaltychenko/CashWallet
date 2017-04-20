@@ -14,6 +14,9 @@ public class Currency {
     @SerializedName("ex_to_usd")
     @Expose
     private double exRate;
+    @SerializedName("symbol")
+    @Expose
+    private String symbol;
 
     public String getName() {
         return name;
@@ -29,5 +32,13 @@ public class Currency {
 
     public void setExRate(double exRate) {
         this.exRate = exRate;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 }

@@ -11,6 +11,4 @@ import eu.cash.wallet.login.model.callback.UserInfoCallback;
 public interface LoginRepository {
     void login(String email, String password, AuthCallbacks.LoginCallback loginCallback);
     void register(String email, String password, String nickname, AuthCallbacks.RegisterCallback callback);
-    void getConfig(ConfigCallback configCallback);
-    void getUserInfo(String token, UserInfoCallback userInfoCallback);
 }

@@ -1,5 +1,6 @@
 package eu.cash.wallet.main.view;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +19,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -36,6 +38,7 @@ import eu.cash.wallet.main.presenter.MainPresenter;
  * Created by alexandr on 16.04.17.
  */
 
+@SuppressWarnings("deprecation")
 public class MainActivity extends AppCompatActivity implements MainView, MainDrawer, Drawer.OnDrawerItemClickListener, View.OnClickListener {
     private Drawer drawer;
     private HeaderHolder headerHolder;
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements MainView, MainDra
     @Inject
     MainPresenter mainPresenter;
 
+
     public void onCreate(Bundle savedBundleInstance) {
         super.onCreate(savedBundleInstance);
         setContentView(R.layout.activity_main);
@@ -67,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements MainView, MainDra
         mainPresenter.attachView(this, this);
         toolbar.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
         menu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
@@ -103,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements MainView, MainDra
     @Override
     public void buildDrawer(List<IDrawerItem> list) {
         headerHolder = new HeaderHolder();
-        View header = getLayoutInflater().inflate(R.layout.header_view, null);
+        @SuppressLint("InflateParams") View header = getLayoutInflater().inflate(R.layout.header_view, null);
         ButterKnife.bind(headerHolder, header);
         drawer = new DrawerBuilder()
                 .withActivity(this)
@@ -128,8 +133,8 @@ public class MainActivity extends AppCompatActivity implements MainView, MainDra
     @Override
     public void updateDrawerHeader(Me me, Config config) {
         headerHolder.email.setText(me.getEmail());
-        headerHolder.balanceHeader.setText(String.valueOf(me.getTotal()));
-        headerHolder.currency.setText(String.valueOf(config.getDefaultTotalCurrency()));
+        headerHolder.balanceHeader.setText(String.format(Locale.getDefault(),"%.2f",me.getTotal()));
+        headerHolder.currency.setText(config.getDefaultTotalCurrency());
     }
 
     @Override

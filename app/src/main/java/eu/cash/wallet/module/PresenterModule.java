@@ -7,7 +7,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import eu.cash.wallet.LocalDataRepository;
+import eu.cash.wallet.GlobalDataRepository;
 import eu.cash.wallet.home.model.HomeRepository;
 import eu.cash.wallet.home.presenter.DefaultHomePresenter;
 import eu.cash.wallet.home.presenter.HomePresenter;
@@ -26,19 +26,19 @@ public class PresenterModule {
     @Provides
     @NonNull
     @Singleton
-    public LoginPresenter provideLoginPresenter(Context context, LoginRepository loginRepository, LocalDataRepository localDataRepository){
-        return new DefaultLoginPresenter(context, loginRepository, localDataRepository);
+    public LoginPresenter provideLoginPresenter(Context context, LoginRepository loginRepository, GlobalDataRepository globalDataRepository){
+        return new DefaultLoginPresenter(context, loginRepository, globalDataRepository);
     }
     @Provides
     @NonNull
     @Singleton
-    public MainPresenter provideMainPresenter(Context context, MainRepository mainRepository, LocalDataRepository localDataRepository){
-        return new DefaultMainPresenter(context, mainRepository, localDataRepository);
+    public MainPresenter provideMainPresenter(Context context, MainRepository mainRepository, GlobalDataRepository globalDataRepository){
+        return new DefaultMainPresenter(context, mainRepository, globalDataRepository);
     }
     @Provides
     @NonNull
     @Singleton
-    public HomePresenter provideHomePresenter(Context context, HomeRepository homeRepository){
-        return new DefaultHomePresenter(context, homeRepository);
+    public HomePresenter provideHomePresenter(Context context, HomeRepository homeRepository, GlobalDataRepository globalDataRepository){
+        return new DefaultHomePresenter(context, homeRepository, globalDataRepository);
     }
 }

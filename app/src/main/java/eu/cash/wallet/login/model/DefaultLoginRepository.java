@@ -4,14 +4,11 @@ import android.os.Build;
 
 import javax.inject.Inject;
 
-import eu.cash.wallet.LocalDataRepository;
-import eu.cash.wallet.home.model.entity.Me;
+import eu.cash.wallet.GlobalDataRepository;
 import eu.cash.wallet.home.model.response.MeResponse;
 import eu.cash.wallet.login.model.callback.AuthCallbacks;
 import eu.cash.wallet.login.model.callback.ConfigCallback;
 import eu.cash.wallet.login.model.callback.UserInfoCallback;
-import eu.cash.wallet.login.model.entity.Auth;
-import eu.cash.wallet.login.model.entity.Config;
 import eu.cash.wallet.login.model.response.AuthResponse;
 import eu.cash.wallet.login.model.response.ConfigResponse;
 import retrofit2.Call;
@@ -24,14 +21,12 @@ import retrofit2.Response;
 
 public class DefaultLoginRepository implements LoginRepository {
     private AuthService authService;
-    private ConfigService configService;
-    private LocalDataRepository localDataRepository;
+    private GlobalDataRepository globalDataRepository;
 
     @Inject
-    public DefaultLoginRepository(AuthService authService, ConfigService configService, LocalDataRepository localDataRepository) {
+    public DefaultLoginRepository(AuthService authService, GlobalDataRepository globalDataRepository) {
         this.authService = authService;
-        this.configService = configService;
-        this.localDataRepository = localDataRepository;
+        this.globalDataRepository = globalDataRepository;
     }
 
     @Override
@@ -65,39 +60,6 @@ public class DefaultLoginRepository implements LoginRepository {
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
                 callback.onConnectionError();
-            }
-        });
-    }
-
-    @Override
-    public void getConfig(final ConfigCallback callback) {
-        Call<ConfigResponse> call = configService
-                .getConfig(Build.VERSION.SDK_INT);
-        call.enqueue(new Callback<ConfigResponse>() {
-            @Override
-            public void onResponse(Call<ConfigResponse> call, Response<ConfigResponse> response) {
-                callback.onConfigFetched(response.body().getConfig());
-            }
-
-            @Override
-            public void onFailure(Call<ConfigResponse> call, Throwable t) {
-                callback.onConnectionError();
-            }
-        });
-    }
-
-    @Override
-    public void getUserInfo(String token, final UserInfoCallback userInfoCallback) {
-        Call<MeResponse> call = authService.getMe(token);
-        call.enqueue(new Callback<MeResponse>() {
-            @Override
-            public void onResponse(Call<MeResponse> call, Response<MeResponse> response) {
-                userInfoCallback.onUserInfoFetched(response.body().getMe());
-            }
-
-            @Override
-            public void onFailure(Call<MeResponse> call, Throwable t) {
-                userInfoCallback.onConnectionError();
             }
         });
     }

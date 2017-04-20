@@ -22,6 +22,4 @@ public interface AuthService {
     @Multipart
     @POST("register")
     Call<AuthResponse> getAuthFromRegistration(@Part("email") String email, @Part("password") String password, @Part("nickname") String lang);
-    @GET("me")
-    Call<MeResponse> getMe(@Header("Auth") String auth);
 }

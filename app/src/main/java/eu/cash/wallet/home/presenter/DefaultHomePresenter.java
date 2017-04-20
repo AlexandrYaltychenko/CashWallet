@@ -4,6 +4,8 @@ import android.content.Context;
 
 import javax.inject.Inject;
 
+import eu.cash.wallet.GlobalDataRepository;
+import eu.cash.wallet.GlobalDataService;
 import eu.cash.wallet.home.model.HomeRepository;
 import eu.cash.wallet.home.view.HomeView;
 import eu.cash.wallet.main.presenter.DefaultMainPresenter;
@@ -16,14 +18,17 @@ public class DefaultHomePresenter implements HomePresenter {
     private HomeView homeView;
     private Context context;
     private HomeRepository homeRepository;
+    private GlobalDataRepository globalDataRepository;
     @Inject
-    public DefaultHomePresenter(Context context, HomeRepository homeRepository){
+    public DefaultHomePresenter(Context context, HomeRepository homeRepository, GlobalDataRepository globalDataRepository){
         this.context = context;
         this.homeRepository = homeRepository;
+        this.globalDataRepository = globalDataRepository;
     }
     @Override
     public void attachView(HomeView homeView){
         this.homeView = homeView;
+        homeView.setTotalBalance(globalDataRepository.getUserInfo().getTotal(),globalDataRepository.getDefaultCurrency());
     }
 
     @Override
