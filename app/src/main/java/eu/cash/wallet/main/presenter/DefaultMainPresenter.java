@@ -21,7 +21,7 @@ import javax.inject.Inject;
 import eu.cash.wallet.GlobalDataRepository;
 import eu.cash.wallet.R;
 import eu.cash.wallet.account.model.entity.Account;
-import eu.cash.wallet.home.model.entity.Me;
+import eu.cash.wallet.login.model.entity.Me;
 import eu.cash.wallet.home.view.event.NavigateEvent;
 import eu.cash.wallet.login.model.entity.Currency;
 import eu.cash.wallet.main.model.MainRepository;

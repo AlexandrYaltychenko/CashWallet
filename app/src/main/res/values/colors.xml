@@ -17,4 +17,10 @@
     <color name="gray_background">#eeeeee</color>
     <color name="aqua">#00a79d</color>
     <color name="gray_drawer">#bfbfbf</color>
+    <color name="menu_home">#3F51B5</color>
+    <color name="menu_accounts">#2d3b94</color>
+    <color name="menu_stats">#1e33a9</color>
+    <color name="menu_settings">#2b3674</color>
+    <color name="homescreen_item_color">#e1e0d7</color>
+    <color name="red">#ff3200</color>
 </resources>

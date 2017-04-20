@@ -4,7 +4,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.util.List;
 
-import eu.cash.wallet.home.model.entity.Me;
+import eu.cash.wallet.login.model.entity.Me;
 import eu.cash.wallet.login.model.entity.Config;
 
 /**

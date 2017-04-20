@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import eu.cash.wallet.base.Meta;
-import eu.cash.wallet.home.model.entity.Me;
+import eu.cash.wallet.login.model.entity.Me;
 
 /**
  * Created by alexandr on 17.04.17.

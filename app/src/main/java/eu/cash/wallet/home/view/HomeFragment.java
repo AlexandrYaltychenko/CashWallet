@@ -8,12 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
-
-import com.ogaclejapan.arclayout.ArcLayout;
 
 import org.greenrobot.eventbus.EventBus;
 
+
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -23,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import eu.cash.wallet.CashWalletApp;
 import eu.cash.wallet.R;
+import eu.cash.wallet.account.model.entity.Event;
 import eu.cash.wallet.home.presenter.HomePresenter;
 import eu.cash.wallet.home.view.event.NavigateEvent;
 import eu.cash.wallet.login.model.entity.Currency;
@@ -33,10 +35,10 @@ import eu.cash.wallet.main.view.NavigationTarget;
  */
 
 public class HomeFragment extends Fragment implements HomeView{
-    @BindView(R.id.arcLayout)
-    ArcLayout arcLayout;
     @BindView(R.id.header)
     ViewGroup header;
+    @BindView(R.id.list)
+    ListView listView;
     private HeaderHolder headerHolder;
     @Inject
     HomePresenter homePresenter;
@@ -52,7 +54,7 @@ public class HomeFragment extends Fragment implements HomeView{
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this,rootView);
         headerHolder = new HeaderHolder(header);
-        header.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
+        //header.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
         ((CashWalletApp)getContext().getApplicationContext()).getComponent().inject(this);
         return rootView;
     }
@@ -67,7 +69,6 @@ public class HomeFragment extends Fragment implements HomeView{
     public void onResume(){
         super.onResume();
         homePresenter.onResume();
-        arcLayout.startAnimation(AnimationUtils.loadAnimation(getContext(),R.anim.arc_in));
     }
 
     @Override
@@ -82,15 +83,18 @@ public class HomeFragment extends Fragment implements HomeView{
         homePresenter.onDestroy();
     }
 
-    @OnClick(R.id.logout)
-    public void onClick(){
-        Log.d("TEST","POSTED NAVIGATE EVENT!");
-        EventBus.getDefault().post(new NavigateEvent(NavigationTarget.CLOSE));
-    }
 
     @Override
     public void setTotalBalance(double total, Currency currency) {
         headerHolder.balance.setText(String.format(Locale.getDefault(),"%.2f %s",total,currency.getName()));
+    }
+
+    @Override
+    public void displayList(List<Event> events) {
+        Log.d("HOME","SIZE = "+events.size());
+        HomeViewAdapter homeViewAdapter = new HomeViewAdapter(getContext(),events);
+        listView.setAdapter(homeViewAdapter);
+
     }
 
     static class HeaderHolder {

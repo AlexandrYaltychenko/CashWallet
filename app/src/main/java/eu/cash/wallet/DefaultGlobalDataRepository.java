@@ -6,9 +6,12 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
-import eu.cash.wallet.home.model.entity.Me;
+import eu.cash.wallet.account.model.entity.Account;
+import eu.cash.wallet.login.model.entity.Me;
 import eu.cash.wallet.home.model.response.MeResponse;
 import eu.cash.wallet.login.model.callback.ConfigCallback;
 import eu.cash.wallet.login.model.callback.UserInfoCallback;
@@ -132,6 +135,19 @@ public class DefaultGlobalDataRepository implements GlobalDataRepository {
                 userInfoCallback.onConnectionError();
             }
         });
+    }
+
+    @Override
+    public List<Account> getAccounts() {
+        return me.getAccountList();
+    }
+
+    @Override
+    public Account getAccountById(int id) {
+        for (Account account : me.getAccountList())
+            if (id == account.getAccountId())
+                return account;
+        return null;
     }
 
     @Override

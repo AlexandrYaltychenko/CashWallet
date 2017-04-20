@@ -1,4 +1,4 @@
-package eu.cash.wallet.home.model.entity;
+package eu.cash.wallet.login.model.entity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

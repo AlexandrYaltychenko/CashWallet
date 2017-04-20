@@ -1,6 +1,7 @@
 package eu.cash.wallet.main.view;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -8,10 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -28,7 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import eu.cash.wallet.CashWalletApp;
 import eu.cash.wallet.R;
-import eu.cash.wallet.home.model.entity.Me;
+import eu.cash.wallet.login.model.entity.Me;
 import eu.cash.wallet.home.view.HomeFragment;
 import eu.cash.wallet.home.view.event.NavigateEvent;
 import eu.cash.wallet.login.model.entity.Config;
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements MainView, MainDra
     TextView accountsCaption;
     @BindView(R.id.settings_caption)
     TextView settingsCaption;
+    @BindView(R.id.bottom_navigation)
+    AHBottomNavigation bottomNavigation;
     @Inject
     MainPresenter mainPresenter;
 
@@ -69,10 +73,11 @@ public class MainActivity extends AppCompatActivity implements MainView, MainDra
         setSupportActionBar(toolbar);
         ((CashWalletApp) getApplicationContext()).getComponent().inject(this);
         mainPresenter.attachView(this, this);
-        toolbar.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
-        menu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
+        /*toolbar.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
+        menu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));*/
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        buildMenu();
     }
 
     @Override
@@ -117,7 +122,6 @@ public class MainActivity extends AppCompatActivity implements MainView, MainDra
                 .withHeader(header)
                 .withActionBarDrawerToggle(true)
                 .withActionBarDrawerToggleAnimated(true)
-                .withShowDrawerOnFirstLaunch(true)
                 .withDisplayBelowStatusBar(false)
                 .withSliderBackgroundColorRes(R.color.primary)
                 .withDrawerItems(list)
@@ -193,6 +197,39 @@ public class MainActivity extends AppCompatActivity implements MainView, MainDra
     @Override
     public void goAccount(int accountId) {
 
+    }
+
+    public void buildMenu(){
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.menu_home, R.drawable.home_1, R.color.menu_home);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.menu_accounts, R.drawable.wallet, R.color.menu_accounts);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.menu_stats, R.drawable.stats, R.color.menu_stats);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.menu_settings, R.drawable.settings_1, R.color.menu_settings);
+        bottomNavigation.addItem(item1);
+        bottomNavigation.addItem(item2);
+        bottomNavigation.addItem(item3);
+        bottomNavigation.addItem(item4);
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE);
+        bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#FEFEFE"));
+        bottomNavigation.setAccentColor(Color.parseColor("#F63D2B"));
+        bottomNavigation.setInactiveColor(Color.parseColor("#747474"));
+        bottomNavigation.setForceTint(true);
+        bottomNavigation.setTranslucentNavigationEnabled(true);
+        bottomNavigation.setColored(true);
+        bottomNavigation.setCurrentItem(0);
+        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+            @Override
+            public boolean onTabSelected(int position, boolean wasSelected) {
+                NavigateEvent navigateEvent = null;
+                switch (position){
+                    case 0: navigateEvent = new NavigateEvent(NavigationTarget.HOME); break;
+                    case 1: navigateEvent = new NavigateEvent(NavigationTarget.ACCOUNTS); break;
+                    case 2: navigateEvent = new NavigateEvent(NavigationTarget.STATS); break;
+                    case 3: navigateEvent = new NavigateEvent(NavigationTarget.SETTINGS); break;
+                }
+                EventBus.getDefault().post(navigateEvent);
+                return true;
+            }
+        });
     }
 
     @Override

@@ -7,7 +7,7 @@ import android.util.Log;
 import javax.inject.Inject;
 
 import eu.cash.wallet.GlobalDataRepository;
-import eu.cash.wallet.home.model.entity.Me;
+import eu.cash.wallet.login.model.entity.Me;
 import eu.cash.wallet.login.model.callback.AuthCallbacks;
 import eu.cash.wallet.login.model.LoginRepository;
 import eu.cash.wallet.login.model.callback.ConfigCallback;

@@ -1,6 +1,6 @@
 package eu.cash.wallet.login.model.callback;
 
-import eu.cash.wallet.home.model.entity.Me;
+import eu.cash.wallet.login.model.entity.Me;
 
 /**
  * Created by alexandr on 20.04.17.

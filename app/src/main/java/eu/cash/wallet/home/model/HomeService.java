@@ -1,5 +1,6 @@
 package eu.cash.wallet.home.model;
 
+import eu.cash.wallet.home.model.response.HomeScreenResponse;
 import eu.cash.wallet.home.model.response.MeResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -10,6 +11,6 @@ import retrofit2.http.Header;
  */
 
 public interface HomeService {
-    @GET("me")
-    Call<MeResponse> getMe(@Header("Auth") String auth);
+    @GET("homescreen")
+    Call<HomeScreenResponse> getHomeScreen(@Header("Auth") String auth);
 }
