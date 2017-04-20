@@ -14,18 +14,9 @@ import eu.cash.wallet.module.AppModule;
 
 public class CashWalletApp extends Application {
     private AppComponent component;
-    private Config config;
     public static final String BASE_URL = "http://appapi.eu/cash_wallet/web/";
     public AppComponent getComponent() {
         return component;
-    }
-
-    public Config getConfig() {
-        return config;
-    }
-
-    public void setConfig(Config config) {
-        this.config = config;
     }
 
     @Override

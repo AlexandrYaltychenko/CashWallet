@@ -2,6 +2,7 @@ package eu.cash.wallet.main.presenter;
 
 import eu.cash.wallet.base.BasePresenter;
 import eu.cash.wallet.home.view.event.NavigateEvent;
+import eu.cash.wallet.main.view.MainDrawer;
 import eu.cash.wallet.main.view.MainView;
 
 /**
@@ -9,6 +10,6 @@ import eu.cash.wallet.main.view.MainView;
  */
 
 public interface MainPresenter extends BasePresenter {
-    void attachView(MainView mainView);
+    void attachView(MainView mainView, MainDrawer mainDrawer);
     void onNavigate(NavigateEvent navigateEvent);
 }

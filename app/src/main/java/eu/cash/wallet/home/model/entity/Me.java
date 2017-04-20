@@ -27,6 +27,17 @@ public class Me {
     @SerializedName("accounts")
     @Expose
     private List<Account> accountList;
+    @SerializedName("total")
+    @Expose
+    private double total = 1000000;
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
 
     public int getUserId() {
         return userId;

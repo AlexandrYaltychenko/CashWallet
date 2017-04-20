@@ -9,7 +9,6 @@ import java.util.List;
  */
 
 public interface MainView {
-    void buildDrawer(List<IDrawerItem> list);
     void goHome();
     void setState(NavigationTarget navigationTarget);
     void goAccount(int accountId);

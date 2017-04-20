@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import eu.cash.wallet.home.model.entity.Me;
 import eu.cash.wallet.login.model.entity.Auth;
+import eu.cash.wallet.login.model.entity.Config;
 import eu.cash.wallet.login.model.entity.Credentials;
 
 /**
@@ -18,6 +19,7 @@ import eu.cash.wallet.login.model.entity.Credentials;
 
 public class DefaultLocalDataRepository implements LocalDataRepository {
     private Context context;
+    private Config config;
     private Me me;
 
     @Inject public DefaultLocalDataRepository(Context context) {
@@ -93,5 +95,15 @@ public class DefaultLocalDataRepository implements LocalDataRepository {
     @Override
     public Me getUserInfo() {
         return me;
+    }
+
+    @Override
+    public void saveConfig(Config config) {
+        this.config = config;
+    }
+
+    @Override
+    public Config getConfig() {
+        return config;
     }
 }

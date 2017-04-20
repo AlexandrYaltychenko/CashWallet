@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import eu.cash.wallet.home.model.entity.Me;
 import eu.cash.wallet.login.model.entity.Auth;
+import eu.cash.wallet.login.model.entity.Config;
 import eu.cash.wallet.login.model.entity.Credentials;
 
 /**
@@ -19,5 +20,7 @@ public interface LocalDataRepository {
     void clearCredentials();
     void saveUserInfo(Me me);
     Me getUserInfo();
+    void saveConfig(Config config);
+    Config getConfig();
 
 }

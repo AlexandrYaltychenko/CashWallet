@@ -26,15 +26,17 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import eu.cash.wallet.CashWalletApp;
 import eu.cash.wallet.R;
+import eu.cash.wallet.home.model.entity.Me;
 import eu.cash.wallet.home.view.HomeFragment;
 import eu.cash.wallet.home.view.event.NavigateEvent;
+import eu.cash.wallet.login.model.entity.Config;
 import eu.cash.wallet.main.presenter.MainPresenter;
 
 /**
  * Created by alexandr on 16.04.17.
  */
 
-public class MainActivity extends AppCompatActivity implements MainView, Drawer.OnDrawerItemClickListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements MainView, MainDrawer, Drawer.OnDrawerItemClickListener, View.OnClickListener {
     private Drawer drawer;
     private HeaderHolder headerHolder;
     @BindView(R.id.toolbar)
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Drawer.
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         ((CashWalletApp) getApplicationContext()).getComponent().inject(this);
-        mainPresenter.attachView(this);
+        mainPresenter.attachView(this, this);
         toolbar.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
         menu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -116,6 +118,23 @@ public class MainActivity extends AppCompatActivity implements MainView, Drawer.
                 .withDrawerItems(list)
                 .build();
         drawer.setOnDrawerItemClickListener(this);
+    }
+
+    @Override
+    public void setDrawerItems(List<IDrawerItem> list) {
+        drawer.setItems(list);
+    }
+
+    @Override
+    public void updateDrawerHeader(Me me, Config config) {
+        headerHolder.email.setText(me.getEmail());
+        headerHolder.balanceHeader.setText(String.valueOf(me.getTotal()));
+        headerHolder.currency.setText(String.valueOf(config.getDefaultTotalCurrency()));
+    }
+
+    @Override
+    public void changeItem(IDrawerItem item, int pos) {
+        drawer.setItemAtPosition(item, pos);
     }
 
     @Override
@@ -183,5 +202,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Drawer.
         TextView nickname;
         @BindView(R.id.email)
         TextView email;
+        @BindView(R.id.currency)
+        TextView currency;
     }
 }

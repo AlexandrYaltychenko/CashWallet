@@ -106,7 +106,7 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
     public void onConfigFetched(Config config) {
         Log.d("TEST", "CONFIG = " + config.isPromoShown());
         this.config = config;
-        ((CashWalletApp)context.getApplicationContext()).setConfig(config);
+        localDataRepository.saveConfig(config);
         if (localDataRepository.getAuthToken() != null) {
             loginRepository.getUserInfo(localDataRepository.getAuthToken().getToken(),this);
             Log.d("TEST","CONTINUING WITH STORED TOKEN");
