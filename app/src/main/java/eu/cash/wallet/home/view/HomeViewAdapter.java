@@ -66,6 +66,7 @@ public class HomeViewAdapter extends BaseAdapter {
         holder.amount.setText(String.format(Locale.getDefault(),"%.2f %s",event.getAmount(),event.getAccount().getCurrency()));
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm",Locale.getDefault());
         holder.date.setText(dateFormat.format(new Date(event.getTimestamp()*1000)));
+        holder.event.setText(event.getEventTitle());
         if (event.getAmount()>=0)
             holder.typeMarker.setBackgroundColor(context.getResources().getColor(R.color.tumblr_green));
         else

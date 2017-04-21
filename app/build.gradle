@@ -44,6 +44,7 @@ dependencies {
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.github.wangjiegulu:RapidFloatingActionButton:1.0.3'
     compile 'com.aurelhubert:ahbottomnavigation:2.0.6'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     compile('com.mikepenz:materialdrawer:5.8.2@aar') {
         transitive = true
     }
