@@ -7,9 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.github.clans.fab.FloatingActionMenu;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -39,6 +42,8 @@ public class HomeFragment extends Fragment implements HomeView{
     ViewGroup header;
     @BindView(R.id.list)
     ListView listView;
+    @BindView(R.id.navigateMenu)
+    FloatingActionMenu actionMenu;
     private HeaderHolder headerHolder;
     @Inject
     HomePresenter homePresenter;
@@ -94,7 +99,29 @@ public class HomeFragment extends Fragment implements HomeView{
         Log.d("HOME","SIZE = "+events.size());
         HomeViewAdapter homeViewAdapter = new HomeViewAdapter(getContext(),events);
         listView.setAdapter(homeViewAdapter);
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem>0) {
+                    if (!actionMenu.isMenuButtonHidden())
+                        actionMenu.hideMenuButton(true);
+                } else
+                    if (actionMenu.isMenuButtonHidden())
+                        actionMenu.showMenuButton(true);
+
+            }
+        });
+
+    }
+
+    @OnClick(R.id.stats)
+    public void onClick(){
+        actionMenu.hideMenuButton(true);
     }
 
     static class HeaderHolder {

@@ -3,192 +3,21 @@
 
     <item
         is-multidex="false"
-        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.1.0/2de7cd8b95b7021b1d597f049bcb422055119f2c/retrofit-2.1.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="2de7cd8b95b7021b1d597f049bcb422055119f2c">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/retrofit-2.1.0_7d0d135f230426ebc8eb9f69f1105d6abc793d60.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.aurelhubert/ahbottomnavigation/2.0.6/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="c8ba41bea7f78f8bdf3a803b9d08eb3fff416706">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.aurelhubert-ahbottomnavigation-2.0.6_4fa3cd0f25319e157f6c9724e4688cded07a5328.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.3.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-25.3.1_5b8411d9d736c6ffaf3147bb0c402961f4a43e7f.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/me.zhanghai.android.materialprogressbar/library/1.4.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="5a5cbc42192d2afde319e4babe59bf8e41a49d35">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/me.zhanghai.android.materialprogressbar-library-1.4.0_ca2f36568a6d2b0647fa10d0e38b97d1dbc94752.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.5.1/bb67dad90bab7cd77a8f7f1b8442b47e3a2326bc/butterknife-annotations-8.5.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="bb67dad90bab7cd77a8f7f1b8442b47e3a2326bc">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/butterknife-annotations-8.5.1_70c35e763e1ffc22b1b37596dd1399d3c0456944.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.3.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.3.1_4ddc142fb32515572c7dc189a8de48e65b6d2bc9.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.balysv.materialmenu/material-menu/2.0.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="e903a9f9e5f0b4d11b805500bb3ab4231201b4e8">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.balysv.materialmenu-material-menu-2.0.0_b1f88bcbacb054450c4f1272bab2af5dce0325cd.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/org.reactivestreams/reactive-streams/1.0.0/14b8c877d98005ba3941c9257cfe09f6ed0e0d74/reactive-streams-1.0.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="14b8c877d98005ba3941c9257cfe09f6ed0e0d74">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/reactive-streams-1.0.0_b55a6410e5a6bf506297ea0f864afc39bf072d3b.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/gson-2.7_61503a585a1c2308f0d6b272a5a2094632772b92.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/org.greenrobot/eventbus/3.0.0/ddd99896e9569eaababbe81b35d80e1b91c4ad85/eventbus-3.0.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ddd99896e9569eaababbe81b35d80e1b91c4ad85">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/eventbus-3.0.0_1b7728cf49fcd371c475d97967b3975a7633a7e4.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.android.support/design/25.2.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ea6a989b83d19b1b461281e0475a6cd6514897f8">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.android.support-design-25.2.0_786f40271016a81929a199a5076adf87999604af.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.mikepenz/fastadapter/2.1.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="7118aee70be2579da7bc488325e2c2ba9f668514">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.mikepenz-fastadapter-2.1.0_3deb345eb76351fb5a9e3d38c1d93f700d970bcd.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.android.support/transition/25.2.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="e51c2f662bb72419632af5192553c37e33890a99">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.android.support-transition-25.2.0_fe3a560cda90735d3945242c644475b81a82e504.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.github.wangjiegulu/RapidFloatingActionButton/1.0.3/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="7ace574bd540f619e04e8217be64111fdf1f2a67">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.github.wangjiegulu-RapidFloatingActionButton-1.0.3_7fa86e5cf3a0dc9317d52fb1de47cbfe5a2c3725.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.3.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="95519720620b553f63afc789beba9ad582807f7c">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-25.3.1_1fa3caf7b4fa39597870f4edb6338379a2f73a6c.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.8.0/5ea7af56cc7c567ed9856d99efb30740e9b17ff/okio-1.8.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="05ea7af56cc7c567ed9856d99efb30740e9b17ff">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/okio-1.8.0_99970b1e5638b55ead88efd56fa7b6b39375b130.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.github.clans/fab/1.6.4/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="1c3b9743fe8bb166a90a7e98b9b9f1f8021d80cd">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.github.clans-fab-1.6.4_270142904638aa6007fb5f175a9072775179be17.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.0.1/57f850a6b317e5582f1dbaff10a9e7d7e1fcdcfb/rxjava-2.0.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="57f850a6b317e5582f1dbaff10a9e7d7e1fcdcfb">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/rxjava-2.0.1_ebf8cfcc430f51d71880115440015348c03778e5.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.github.johnpersano/supertoasts/2.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="8f30f0d083aa1d28b5fd24626c2449588e15ed70">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.github.johnpersano-supertoasts-2.0_ab9263db840ab47ec745223f81546bd837520d2d.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/logging-interceptor/3.3.1/99ce730034c6f5aaed710d1e0e9df95e8714ed5f/logging-interceptor-3.3.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="99ce730034c6f5aaed710d1e0e9df95e8714ed5f">
-        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/logging-interceptor-3.3.1_969bff80ac53fbc4ef107172cbf273cb0a1fe003.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/alexandr/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.3.1/support-annotations-25.3.1.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
         <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/support-annotations-25.3.1_24a0d4ee2be9c993cbcdf240fc98fac88db56d4e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.1.0/2de7cd8b95b7021b1d597f049bcb422055119f2c/retrofit-2.1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2de7cd8b95b7021b1d597f049bcb422055119f2c">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/retrofit-2.1.0_7d0d135f230426ebc8eb9f69f1105d6abc793d60.jar" />
     </item>
     <item
         is-multidex="false"
@@ -264,12 +93,66 @@
     </item>
     <item
         is-multidex="false"
+        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.aurelhubert/ahbottomnavigation/2.0.6/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c8ba41bea7f78f8bdf3a803b9d08eb3fff416706">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.aurelhubert-ahbottomnavigation-2.0.6_4fa3cd0f25319e157f6c9724e4688cded07a5328.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-25.3.1_5b8411d9d736c6ffaf3147bb0c402961f4a43e7f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/me.zhanghai.android.materialprogressbar/library/1.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5a5cbc42192d2afde319e4babe59bf8e41a49d35">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/me.zhanghai.android.materialprogressbar-library-1.4.0_ca2f36568a6d2b0647fa10d0e38b97d1dbc94752.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.5.1/bb67dad90bab7cd77a8f7f1b8442b47e3a2326bc/butterknife-annotations-8.5.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bb67dad90bab7cd77a8f7f1b8442b47e3a2326bc">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/butterknife-annotations-8.5.1_70c35e763e1ffc22b1b37596dd1399d3c0456944.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.3.1_4ddc142fb32515572c7dc189a8de48e65b6d2bc9.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.android.support/support-v13/25.3.1/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="8531f2d46b35de75e6130f25830e0c2c0d6bb98c">
         <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.android.support-support-v13-25.3.1_20a68c2a97f25a38a9d5595772b10b13363bac64.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.balysv.materialmenu/material-menu/2.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e903a9f9e5f0b4d11b805500bb3ab4231201b4e8">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.balysv.materialmenu-material-menu-2.0.0_b1f88bcbacb054450c4f1272bab2af5dce0325cd.jar" />
     </item>
     <item
         is-multidex="false"
@@ -288,6 +171,24 @@
         revision="25.0.2"
         sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
         <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.3.1_f21332ecdbeeac01f0b1cce190466ee01be56401.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/org.reactivestreams/reactive-streams/1.0.0/14b8c877d98005ba3941c9257cfe09f6ed0e0d74/reactive-streams-1.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="14b8c877d98005ba3941c9257cfe09f6ed0e0d74">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/reactive-streams-1.0.0_b55a6410e5a6bf506297ea0f864afc39bf072d3b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/gson-2.7_61503a585a1c2308f0d6b272a5a2094632772b92.jar" />
     </item>
     <item
         is-multidex="false"
@@ -336,12 +237,66 @@
     </item>
     <item
         is-multidex="false"
+        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/org.greenrobot/eventbus/3.0.0/ddd99896e9569eaababbe81b35d80e1b91c4ad85/eventbus-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ddd99896e9569eaababbe81b35d80e1b91c4ad85">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/eventbus-3.0.0_1b7728cf49fcd371c475d97967b3975a7633a7e4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.android.support/design/25.2.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ea6a989b83d19b1b461281e0475a6cd6514897f8">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.android.support-design-25.2.0_786f40271016a81929a199a5076adf87999604af.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.mikepenz/fastadapter/2.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7118aee70be2579da7bc488325e2c2ba9f668514">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.mikepenz-fastadapter-2.1.0_3deb345eb76351fb5a9e3d38c1d93f700d970bcd.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.github.DamanSingh4321/ProProgressViews/v1.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="22e7ffa4de1deb059ae90473050cc0f284fd9767">
         <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.github.DamanSingh4321-ProProgressViews-v1.0_0675e67dcda3e7e2a3754009dcc0ef21a9e73f55.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.android.support/transition/25.2.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e51c2f662bb72419632af5192553c37e33890a99">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.android.support-transition-25.2.0_fe3a560cda90735d3945242c644475b81a82e504.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.github.wangjiegulu/RapidFloatingActionButton/1.0.3/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7ace574bd540f619e04e8217be64111fdf1f2a67">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.github.wangjiegulu-RapidFloatingActionButton-1.0.3_7fa86e5cf3a0dc9317d52fb1de47cbfe5a2c3725.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="95519720620b553f63afc789beba9ad582807f7c">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-25.3.1_1fa3caf7b4fa39597870f4edb6338379a2f73a6c.jar" />
     </item>
     <item
         is-multidex="false"
@@ -354,12 +309,30 @@
     </item>
     <item
         is-multidex="false"
+        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.8.0/5ea7af56cc7c567ed9856d99efb30740e9b17ff/okio-1.8.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="05ea7af56cc7c567ed9856d99efb30740e9b17ff">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/okio-1.8.0_99970b1e5638b55ead88efd56fa7b6b39375b130.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.3.1/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
         <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.3.1_cfb8c48ace0949085ab40e73d5652c6a4d89b901.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.github.clans/fab/1.6.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1c3b9743fe8bb166a90a7e98b9b9f1f8021d80cd">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.github.clans-fab-1.6.4_270142904638aa6007fb5f175a9072775179be17.jar" />
     </item>
     <item
         is-multidex="false"
@@ -372,12 +345,48 @@
     </item>
     <item
         is-multidex="false"
+        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.0.1/57f850a6b317e5582f1dbaff10a9e7d7e1fcdcfb/rxjava-2.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="57f850a6b317e5582f1dbaff10a9e7d7e1fcdcfb">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/rxjava-2.0.1_ebf8cfcc430f51d71880115440015348c03778e5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v3.0.2/5d4eb08a326bdbd7fbbddc769666898c9936b282/MPAndroidChart-v3.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5d4eb08a326bdbd7fbbddc769666898c9936b282">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/MPAndroidChart-v3.0.2_164dda7a3d3a943206cae051c9aaa4b2c4b980c7.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/com.google.dagger/dagger/2.9/75a739e59d7ede2f7f425f369955bdd1c2ac122b/dagger-2.9.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="75a739e59d7ede2f7f425f369955bdd1c2ac122b">
         <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/dagger-2.9_79fa31dc6c485c7e5def8febccd1c84ae42afa23.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/CashWallet/app/build/intermediates/exploded-aar/com.github.johnpersano/supertoasts/2.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8f30f0d083aa1d28b5fd24626c2449588e15ed70">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/com.github.johnpersano-supertoasts-2.0_ab9263db840ab47ec745223f81546bd837520d2d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/alexandr/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/logging-interceptor/3.3.1/99ce730034c6f5aaed710d1e0e9df95e8714ed5f/logging-interceptor-3.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="99ce730034c6f5aaed710d1e0e9df95e8714ed5f">
+        <dex dex="/Users/alexandr/CashWallet/app/build/intermediates/pre-dexed/debug/logging-interceptor-3.3.1_969bff80ac53fbc4ef107172cbf273cb0a1fe003.jar" />
     </item>
 
 </items>

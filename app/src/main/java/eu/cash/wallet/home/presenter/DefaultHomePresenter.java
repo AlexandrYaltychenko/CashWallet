@@ -2,6 +2,7 @@ package eu.cash.wallet.home.presenter;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -43,7 +44,11 @@ public class DefaultHomePresenter implements HomePresenter, HomeScreenCallback {
         List<Event> events = homeScreen.getEvents();
         for (Event event : events)
             event.setAccount(globalDataRepository.getAccountById(event.getAccountId()));
-        homeView.displayList(events);
+        List<Event> t = new ArrayList<>();
+        t.addAll(events);
+        //t.addAll(events);
+        t.add(events.get(0));
+        homeView.displayList(t);
     }
 
     @Override
