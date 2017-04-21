@@ -46,8 +46,7 @@ public class DefaultHomePresenter implements HomePresenter, HomeScreenCallback {
             event.setAccount(globalDataRepository.getAccountById(event.getAccountId()));
         List<Event> t = new ArrayList<>();
         t.addAll(events);
-        //t.addAll(events);
-        t.add(events.get(0));
+        t.addAll(events);
         homeView.displayList(t);
     }
 

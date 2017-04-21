@@ -37,7 +37,7 @@ import eu.cash.wallet.main.view.NavigationTarget;
  * Created by alexandr on 17.04.17.
  */
 
-public class HomeFragment extends Fragment implements HomeView{
+public class HomeFragment extends Fragment implements HomeView {
     @BindView(R.id.header)
     ViewGroup header;
     @BindView(R.id.list)
@@ -47,43 +47,45 @@ public class HomeFragment extends Fragment implements HomeView{
     private HeaderHolder headerHolder;
     @Inject
     HomePresenter homePresenter;
+
     public static HomeFragment newInstance() {
         Bundle args = new Bundle();
         HomeFragment fragment = new HomeFragment();
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        ButterKnife.bind(this,rootView);
+        ButterKnife.bind(this, rootView);
         headerHolder = new HeaderHolder(header);
         //header.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
-        ((CashWalletApp)getContext().getApplicationContext()).getComponent().inject(this);
+        ((CashWalletApp) getContext().getApplicationContext()).getComponent().inject(this);
         return rootView;
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstance){
-        super.onViewCreated(view,savedInstance);
+    public void onViewCreated(View view, Bundle savedInstance) {
+        super.onViewCreated(view, savedInstance);
         homePresenter.attachView(this);
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         homePresenter.onResume();
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         homePresenter.onResume();
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         homePresenter.onDestroy();
     }
@@ -91,15 +93,17 @@ public class HomeFragment extends Fragment implements HomeView{
 
     @Override
     public void setTotalBalance(double total, Currency currency) {
-        headerHolder.balance.setText(String.format(Locale.getDefault(),"%.2f %s",total,currency.getName()));
+        headerHolder.balance.setText(String.format(Locale.getDefault(), "%.2f %s", total, currency.getName()));
     }
 
     @Override
     public void displayList(List<Event> events) {
-        Log.d("HOME","SIZE = "+events.size());
-        HomeViewAdapter homeViewAdapter = new HomeViewAdapter(getContext(),events);
+        Log.d("HOME", "SIZE = " + events.size());
+        HomeViewAdapter homeViewAdapter = new HomeViewAdapter(getContext(), events);
         listView.setAdapter(homeViewAdapter);
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            int previous = 0;
+
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
@@ -107,12 +111,16 @@ public class HomeFragment extends Fragment implements HomeView{
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (firstVisibleItem>0) {
-                    if (!actionMenu.isMenuButtonHidden())
-                        actionMenu.hideMenuButton(true);
-                } else
-                    if (actionMenu.isMenuButtonHidden())
-                        actionMenu.showMenuButton(true);
+                if (!actionMenu.isMenuButtonHidden() && firstVisibleItem > previous) {
+                    actionMenu.hideMenuButton(true);
+                    Log.d("HOME", "HIDE MENU!");
+                } else if (actionMenu.isMenuButtonHidden() && firstVisibleItem < previous) {
+                    actionMenu.showMenuButton(true);
+                    Log.d("HOME", "SHOW MENU!");
+                }
+                if (previous != firstVisibleItem)
+                    Log.d("HOME", "PREV = " + previous + " FIRST = " + firstVisibleItem);
+                previous = firstVisibleItem;
 
             }
         });
@@ -120,7 +128,7 @@ public class HomeFragment extends Fragment implements HomeView{
     }
 
     @OnClick(R.id.stats)
-    public void onClick(){
+    public void onClick() {
         actionMenu.hideMenuButton(true);
     }
 
@@ -131,7 +139,8 @@ public class HomeFragment extends Fragment implements HomeView{
         TextView balance;
         @BindView(R.id.icon)
         ImageView icon;
-        HeaderHolder(View view){
+
+        HeaderHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }

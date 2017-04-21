@@ -53,7 +53,6 @@ public class HomeViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("HOME","CALLING FOR POS "+position);
         if (convertView == null)
             convertView = layoutInflater.inflate(R.layout.homescreen_item, parent, false);
         HomeItemHolder holder = (HomeItemHolder) convertView.getTag();
