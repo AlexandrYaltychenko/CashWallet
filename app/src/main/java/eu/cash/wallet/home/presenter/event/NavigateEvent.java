@@ -1,4 +1,4 @@
-package eu.cash.wallet.home.view.event;
+package eu.cash.wallet.home.presenter.event;
 
 import eu.cash.wallet.main.view.NavigationTarget;
 

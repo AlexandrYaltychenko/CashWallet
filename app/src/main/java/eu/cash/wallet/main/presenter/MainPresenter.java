@@ -1,7 +1,8 @@
 package eu.cash.wallet.main.presenter;
 
 import eu.cash.wallet.base.BasePresenter;
-import eu.cash.wallet.home.view.event.NavigateEvent;
+import eu.cash.wallet.home.presenter.event.NavigateEvent;
+import eu.cash.wallet.login.presenter.event.LoginEvent;
 import eu.cash.wallet.main.view.MainDrawer;
 import eu.cash.wallet.main.view.MainView;
 
@@ -14,4 +15,5 @@ public interface MainPresenter extends BasePresenter {
     void navigate(NavigateEvent navigateEvent);
     void onDrawerItemClick(int position);
     boolean onBottomMenuSelected(int position);
+    public void loginComplete(LoginEvent loginEvent);
 }

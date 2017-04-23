@@ -5,20 +5,16 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="eu.cash.wallet.login.view.LoginActivity">
+    tools:context="eu.cash.wallet.login.view.LoginFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="56dp"
-        android:layout_marginBottom="48dp">
+        android:layout_height="match_parent">
 
-        <ImageButton
-            android:padding="10dp"
+        <ImageView
             android:id="@+id/wallet"
             android:scaleType="fitXY"
-            android:background="@drawable/tumblr_green_oval"
-            android:src="@drawable/wallet"
+            android:src="@drawable/icon"
             android:layout_centerInParent="true"
             android:layout_height="96dp"
             android:layout_width="96dp" />

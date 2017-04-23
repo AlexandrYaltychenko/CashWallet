@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class DefaultGlobalDataRepository implements GlobalDataRepository {
     public DefaultGlobalDataRepository(Context context, GlobalDataService globalDataService) {
         this.context = context;
         this.globalDataService = globalDataService;
+        Log.d("CASHAPP","GLOBALREP CREATED");
     }
 
     @Override

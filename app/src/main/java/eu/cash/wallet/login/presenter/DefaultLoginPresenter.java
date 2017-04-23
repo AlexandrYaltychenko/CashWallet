@@ -4,6 +4,8 @@ package eu.cash.wallet.login.presenter;
 import android.content.Context;
 import android.util.Log;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Inject;
 
 import eu.cash.wallet.GlobalDataRepository;
@@ -14,6 +16,7 @@ import eu.cash.wallet.login.model.callback.ConfigCallback;
 import eu.cash.wallet.login.model.callback.UserInfoCallback;
 import eu.cash.wallet.login.model.entity.Auth;
 import eu.cash.wallet.login.model.entity.Config;
+import eu.cash.wallet.login.presenter.event.LoginEvent;
 import eu.cash.wallet.login.view.LoginView;
 
 /**
@@ -120,7 +123,7 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
 
     @Override
     public void onUserInfoFetched(Me me) {
-        loginView.goNext();
+        EventBus.getDefault().post(new LoginEvent());
     }
 
     @Override

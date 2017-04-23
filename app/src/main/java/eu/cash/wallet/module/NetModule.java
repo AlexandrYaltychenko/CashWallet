@@ -11,6 +11,9 @@ import eu.cash.wallet.StringConverterFactory;
 import eu.cash.wallet.account.model.AccountRepository;
 import eu.cash.wallet.account.model.AccountService;
 import eu.cash.wallet.account.model.DefaultAccountRepository;
+import eu.cash.wallet.event.model.DefaultEventRepository;
+import eu.cash.wallet.event.model.EventRepository;
+import eu.cash.wallet.event.model.EventService;
 import eu.cash.wallet.home.model.DefaultHomeRepository;
 import eu.cash.wallet.home.model.HomeRepository;
 import eu.cash.wallet.home.model.HomeService;
@@ -51,6 +54,12 @@ public class NetModule {
     @Singleton
     AccountRepository provideAccountRepository(AccountService accountService){
         return new DefaultAccountRepository(accountService);
+    }
+
+    @Provides
+    @Singleton
+    EventRepository provideEventRepository(EventService eventService){
+        return new DefaultEventRepository(eventService);
     }
 
     @Provides
@@ -107,6 +116,20 @@ public class NetModule {
                 .addConverterFactory(StringConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()).create(GlobalDataService.class);
+    }
+
+    @Provides
+    @Singleton
+    EventService provideEventService() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        return (new Retrofit.Builder()
+                .baseUrl(CashWalletApp.BASE_URL)
+                .client(client)
+                .addConverterFactory(StringConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()).create(EventService.class);
     }
 
 }

@@ -20,14 +20,14 @@ public class CashWalletApp extends Application {
     public AppComponent getComponent() {
         return component;
     }
-    @Inject GlobalDataRepository globalDataRepository;
     @Override
     public void onCreate(){
         super.onCreate();
+        Log.d("CASHAPP","CREATED!");
         component = buildComponent();
-        component.inject(this);
         Log.d("CHECK",String.valueOf(component == null));
     }
+
     protected AppComponent buildComponent() {
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(this))

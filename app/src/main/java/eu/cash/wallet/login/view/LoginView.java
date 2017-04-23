@@ -13,7 +13,6 @@ public interface LoginView extends BaseView {
     void showInetError();
     void showInvalidCredentials();
     void showLoginForm();
-    void goNext();
     void displayLoginForm();
     void displayRegisterForm();
 }

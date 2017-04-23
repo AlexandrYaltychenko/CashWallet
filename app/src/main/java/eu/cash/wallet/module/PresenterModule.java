@@ -11,6 +11,9 @@ import eu.cash.wallet.GlobalDataRepository;
 import eu.cash.wallet.account.model.AccountRepository;
 import eu.cash.wallet.account.presenter.AccountPresenter;
 import eu.cash.wallet.account.presenter.DefaultAccountPresenter;
+import eu.cash.wallet.event.model.EventRepository;
+import eu.cash.wallet.event.presenter.DefaultEventPresenter;
+import eu.cash.wallet.event.presenter.EventPresenter;
 import eu.cash.wallet.home.model.HomeRepository;
 import eu.cash.wallet.home.presenter.DefaultHomePresenter;
 import eu.cash.wallet.home.presenter.HomePresenter;
@@ -46,5 +49,10 @@ public class PresenterModule {
     @NonNull
     public AccountPresenter provideAccountPresenter(Context context, AccountRepository accountRepository, GlobalDataRepository globalDataRepository){
         return new DefaultAccountPresenter(context, accountRepository, globalDataRepository);
+    }
+    @Provides
+    @NonNull
+    public EventPresenter provideEventPresenter(Context context, EventRepository eventRepository, GlobalDataRepository globalDataRepository){
+        return new DefaultEventPresenter(context, eventRepository, globalDataRepository);
     }
 }

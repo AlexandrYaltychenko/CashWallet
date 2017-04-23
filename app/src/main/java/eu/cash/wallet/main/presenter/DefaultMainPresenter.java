@@ -23,8 +23,9 @@ import eu.cash.wallet.GlobalDataRepository;
 import eu.cash.wallet.R;
 import eu.cash.wallet.account.model.entity.Account;
 import eu.cash.wallet.login.model.entity.Me;
-import eu.cash.wallet.home.view.event.NavigateEvent;
+import eu.cash.wallet.home.presenter.event.NavigateEvent;
 import eu.cash.wallet.login.model.entity.Currency;
+import eu.cash.wallet.login.presenter.event.LoginEvent;
 import eu.cash.wallet.main.model.MainRepository;
 import eu.cash.wallet.main.view.MainDrawer;
 import eu.cash.wallet.main.view.MainView;
@@ -80,7 +81,7 @@ public class DefaultMainPresenter implements MainPresenter {
         Log.d("MAIN","DRAWER CLICKED = "+position);
         if (position == DrawerItems.ALL){
             mainDrawer.hideDrawer();
-            goHome();
+            goHome(true);
             return;
         }
         if (position<DRAWER_OFFSET) return;
@@ -97,7 +98,7 @@ public class DefaultMainPresenter implements MainPresenter {
         mainDrawer.hideDrawer();
         switch (position){
             case MenuTabs.HOME:
-                goHome(); break;
+                goHome(true); break;
         }
         return true;
     }
@@ -105,13 +106,10 @@ public class DefaultMainPresenter implements MainPresenter {
     @Override
     public void attachView(MainView mainView, MainDrawer mainDrawer) {
         this.mainView = mainView;
+        this.mainView.hideUI();
         this.mainDrawer = mainDrawer;
         EventBus.getDefault().register(this);
-        calcTotal();
-        this.mainDrawer.buildDrawer(generateMenuList());
-        this.mainDrawer.updateDrawerHeader(globalDataRepository.getUserInfo(), globalDataRepository.getConfig());
-        goHome();
-        Log.d("TEST", "MAIN VIEW ATTACHED");
+        mainView.goLogin();
     }
 
     private List<IDrawerItem> generateMenuList() {
@@ -162,19 +160,30 @@ public class DefaultMainPresenter implements MainPresenter {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     @Override
+    public void loginComplete(LoginEvent loginEvent){
+        calcTotal();
+        this.mainDrawer.buildDrawer(generateMenuList());
+        this.mainDrawer.updateDrawerHeader(globalDataRepository.getUserInfo(), globalDataRepository.getConfig());
+        goHome(false);
+        mainView.showUI();
+        Log.d("TEST", "MAIN VIEW ATTACHED");
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Override
     public void navigate(NavigateEvent navigateEvent) {
         Log.d("TEST", "EVENT BUS TRANSMITTED EVENT! ");
         switch (navigateEvent.getTarget()) {
             case ACCOUNTS: mainView.goAccount(navigateEvent.getParam()); mainView.setButtonMenuState(navigateEvent.getTarget());break;
-            case HOME: goHome(); break;
+            case HOME: goHome(true); break;
             case CLOSE:
                 System.exit(0);
         }
     }
 
-    private void goHome(){
+    private void goHome(boolean animated){
         Log.d("MAIN","GO HOME!");
-        mainView.goHome();
+        mainView.goHome(animated);
         mainView.setTitle(context.getString(R.string.all_accounts));
         mainView.setButtonMenuState(NavigationTarget.HOME);
     }

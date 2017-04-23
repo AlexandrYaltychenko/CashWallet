@@ -8,9 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -22,8 +20,6 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.github.javiersantos.materialstyleddialogs.enums.Style;
 import com.jaredrummler.materialspinner.MaterialSpinner;
-
-import org.greenrobot.eventbus.EventBus;
 
 
 import java.util.List;
@@ -39,10 +35,7 @@ import eu.cash.wallet.R;
 import eu.cash.wallet.account.model.entity.Account;
 import eu.cash.wallet.account.model.entity.Event;
 import eu.cash.wallet.home.presenter.HomePresenter;
-import eu.cash.wallet.home.view.event.NavigateEvent;
 import eu.cash.wallet.login.model.entity.Currency;
-import eu.cash.wallet.main.view.MainActivity;
-import eu.cash.wallet.main.view.NavigationTarget;
 
 /**
  * Created by alexandr on 17.04.17.

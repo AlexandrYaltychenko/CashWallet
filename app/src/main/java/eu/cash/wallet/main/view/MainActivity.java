@@ -3,7 +3,6 @@ package eu.cash.wallet.main.view;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -11,17 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
-import com.github.javiersantos.materialstyleddialogs.enums.Style;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -38,13 +31,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import eu.cash.wallet.CashWalletApp;
 import eu.cash.wallet.R;
-import eu.cash.wallet.account.model.entity.Account;
 import eu.cash.wallet.account.view.AccountFragment;
 import eu.cash.wallet.login.model.entity.Me;
 import eu.cash.wallet.home.view.HomeFragment;
-import eu.cash.wallet.home.view.event.NavigateEvent;
+import eu.cash.wallet.home.presenter.event.NavigateEvent;
 import eu.cash.wallet.login.model.entity.Config;
-import eu.cash.wallet.login.view.LoginActivity;
+import eu.cash.wallet.login.view.LoginFragment;
 import eu.cash.wallet.main.presenter.MainPresenter;
 
 /**
@@ -174,6 +166,20 @@ public class MainActivity extends AppCompatActivity implements MainView, MainDra
     }
 
     @Override
+    public void showUI() {
+        bottomNavigation.setVisibility(View.VISIBLE);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().show();
+    }
+
+    @Override
+    public void hideUI() {
+        bottomNavigation.setVisibility(View.GONE);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().hide();
+    }
+
+    @Override
     public void setTitle(String text) {
         type.setText(text);
     }
@@ -184,8 +190,13 @@ public class MainActivity extends AppCompatActivity implements MainView, MainDra
     }
 
     @Override
-    public void goHome() {
-        navigateFragment(HomeFragment.newInstance(), true);
+    public void goHome(boolean animated) {
+        navigateFragment(HomeFragment.newInstance(), animated);
+    }
+
+    @Override
+    public void goLogin() {
+        navigateFragment(LoginFragment.newInstance(), true);
     }
 
     private void navigateFragment(Fragment fragment, boolean animate) {

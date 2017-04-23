@@ -15,9 +15,12 @@ import eu.cash.wallet.account.model.entity.Account;
  */
 
 public interface MainView {
-    void goHome();
+    void goHome(boolean animated);
+    void goLogin();
     void goAccount(int accountId);
     void close();
     void setTitle(String text);
     void setButtonMenuState(NavigationTarget navigationTarget);
+    void showUI();
+    void hideUI();
 }

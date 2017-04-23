@@ -1,10 +1,11 @@
 package eu.cash.wallet.login.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -17,9 +18,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
-import butterknife.OnClick;
-import eu.cash.wallet.main.view.MainActivity;
 import eu.cash.wallet.CashWalletApp;
 import eu.cash.wallet.R;
 import eu.cash.wallet.login.presenter.LoginPresenter;
@@ -28,18 +26,35 @@ import eu.cash.wallet.login.presenter.LoginPresenter;
  * Created by alexandr on 01.04.17.
  */
 
-public class LoginActivity extends AppCompatActivity implements LoginView {
+public class LoginFragment extends Fragment implements LoginView {
     @Inject
     LoginPresenter loginPresenter;
     private MaterialStyledDialog dialog;
 
+
+
+    public static LoginFragment newInstance() {
+        Bundle args = new Bundle();
+        LoginFragment fragment = new LoginFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ((CashWalletApp) getApplicationContext()).getComponent().inject(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_login, container, false);
+        ButterKnife.bind(this, rootView);
+        ((CashWalletApp)getContext().getApplicationContext()).getComponent().inject(this);
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstance) {
+        super.onViewCreated(view, savedInstance);
         loginPresenter.attachView(this);
     }
+
 
     @Override
     public void onPause() {
@@ -66,12 +81,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        loginPresenter.onBackPressed();
-    }
-
-    @Override
     public void showLoading() {
 
     }
@@ -92,17 +101,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void goNext() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    @Override
     public void displayLoginForm() {
         if (dialog != null) return;
-        final LoginDialogHolder loginDialogHolder = new LoginDialogHolder(getLayoutInflater().inflate(R.layout.login_dialog, null));
-        dialog = new MaterialStyledDialog.Builder(this)
+        final LoginDialogHolder loginDialogHolder = new LoginDialogHolder(getActivity().getLayoutInflater().inflate(R.layout.login_dialog, null));
+        dialog = new MaterialStyledDialog.Builder(getActivity())
                 .setStyle(Style.HEADER_WITH_TITLE)
                 .setTitle(R.string.sign_in_big)
                 .setHeaderDrawable(R.drawable.dialog_header)
@@ -113,21 +115,21 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        LoginActivity.this.dialog = null;
-                        finish();
+                        LoginFragment.this.dialog = null;
+                        getActivity().finish();
                     }
                 })
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        LoginActivity.this.dialog = null;
+                        LoginFragment.this.dialog = null;
                         loginPresenter.submitLoginForm(loginDialogHolder.email.getText().toString(), loginDialogHolder.password.getText().toString(), loginDialogHolder.remember.isChecked());
                     }
                 })
                 .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        LoginActivity.this.dialog = null;
+                        LoginFragment.this.dialog = null;
                         displayRegisterForm();
                     }
                 })
@@ -139,8 +141,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void displayRegisterForm() {
         if (dialog != null) return;
-        final RegisterDialogHolder registerDialogHolder = new RegisterDialogHolder(getLayoutInflater().inflate(R.layout.register_dialog, null));
-        dialog = new MaterialStyledDialog.Builder(this)
+        final RegisterDialogHolder registerDialogHolder = new RegisterDialogHolder(getActivity().getLayoutInflater().inflate(R.layout.register_dialog, null));
+        dialog = new MaterialStyledDialog.Builder(getActivity())
                 .setStyle(Style.HEADER_WITH_TITLE)
                 .setTitle(R.string.register_big)
                 .setHeaderDrawable(R.drawable.dialog_header)
@@ -151,14 +153,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        LoginActivity.this.dialog = null;
+                        LoginFragment.this.dialog = null;
                         displayLoginForm();
                     }
                 })
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        LoginActivity.this.dialog = null;
+                        LoginFragment.this.dialog = null;
                         loginPresenter.submitRegisterForm(registerDialogHolder.email.getText().toString(),
                                 registerDialogHolder.password.getText().toString(),
                                 registerDialogHolder.nickname.getText().toString());
@@ -168,7 +170,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                 .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        LoginActivity.this.dialog = null;
+                        LoginFragment.this.dialog = null;
                         displayLoginForm();
                     }
                 })
