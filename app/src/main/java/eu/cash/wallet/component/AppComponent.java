@@ -3,6 +3,7 @@ package eu.cash.wallet.component;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import eu.cash.wallet.CashWalletApp;
 import eu.cash.wallet.account.view.AccountFragment;
 import eu.cash.wallet.home.view.HomeFragment;
 import eu.cash.wallet.login.presenter.DefaultLoginPresenter;
@@ -18,6 +19,7 @@ import eu.cash.wallet.module.PresenterModule;
 @Component(modules = {AppModule.class, PresenterModule.class, NetModule.class})
 @Singleton
 public interface AppComponent {
+    void inject(CashWalletApp cashWalletApp);
     void inject(LoginActivity loginActivity);
     void inject(MainActivity mainActivity);
     void inject(HomeFragment homeFragment);

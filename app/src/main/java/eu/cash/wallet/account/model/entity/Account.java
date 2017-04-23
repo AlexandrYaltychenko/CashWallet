@@ -3,6 +3,8 @@ package eu.cash.wallet.account.model.entity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by alexandr on 17.04.17.
  */
@@ -26,6 +28,17 @@ public class Account {
     @SerializedName("account_icon")
     @Expose
     private String iconUrl;
+    @SerializedName("history")
+    @Expose
+    private List<Event> history;
+
+    public List<Event> getHistory() {
+        return history;
+    }
+
+    public void setHistory(List<Event> history) {
+        this.history = history;
+    }
 
     public int getAccountId() {
         return accountId;

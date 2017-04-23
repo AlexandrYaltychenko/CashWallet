@@ -2,6 +2,7 @@ package eu.cash.wallet.home.view;
 
 import java.util.List;
 
+import eu.cash.wallet.account.model.entity.Account;
 import eu.cash.wallet.account.model.entity.Event;
 import eu.cash.wallet.login.model.entity.Currency;
 
@@ -10,6 +11,10 @@ import eu.cash.wallet.login.model.entity.Currency;
  */
 
 public interface HomeView {
-    void setTotalBalance(double total, Currency currency);
+    void displayTotalBalance(double total, Currency currency);
     void displayList(List<Event> events);
+    void displayLoading();
+    void hideLoading();
+    void displayIncomeDialog(List<Account> accounts);
+    void displayCostDialog(List<Account> accounts);
 }

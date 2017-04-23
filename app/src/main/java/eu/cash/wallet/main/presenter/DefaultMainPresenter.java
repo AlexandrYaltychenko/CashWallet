@@ -14,6 +14,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -39,6 +40,7 @@ public class DefaultMainPresenter implements MainPresenter {
     private Context context;
     private MainView mainView;
     private MainDrawer mainDrawer;
+    private static final int DRAWER_OFFSET = 3;
 
     @Inject
     public DefaultMainPresenter(Context context, MainRepository mainRepository, GlobalDataRepository globalDataRepository) {
@@ -74,26 +76,67 @@ public class DefaultMainPresenter implements MainPresenter {
     }
 
     @Override
+    public void onDrawerItemClick(int position) {
+        Log.d("MAIN","DRAWER CLICKED = "+position);
+        if (position == DrawerItems.ALL){
+            mainDrawer.hideDrawer();
+            goHome();
+            return;
+        }
+        if (position<DRAWER_OFFSET) return;
+        mainDrawer.hideDrawer();
+        Log.d("DRAWER","DRAWER CLICKED AT "+position);
+        Account account = globalDataRepository.getAccounts().get(position-DRAWER_OFFSET);
+        mainView.goAccount(account.getAccountId());
+        mainView.setTitle(account.getTitle());
+        mainView.setButtonMenuState(NavigationTarget.ACCOUNTS);
+    }
+
+    @Override
+    public boolean onBottomMenuSelected(int position) {
+        mainDrawer.hideDrawer();
+        switch (position){
+            case MenuTabs.HOME:
+                goHome(); break;
+        }
+        return true;
+    }
+
+    @Override
     public void attachView(MainView mainView, MainDrawer mainDrawer) {
         this.mainView = mainView;
         this.mainDrawer = mainDrawer;
         EventBus.getDefault().register(this);
-        this.mainDrawer.buildDrawer(generateMenuList());
         calcTotal();
+        this.mainDrawer.buildDrawer(generateMenuList());
         this.mainDrawer.updateDrawerHeader(globalDataRepository.getUserInfo(), globalDataRepository.getConfig());
-        this.mainView.goHome();
-        this.mainView.setState(NavigationTarget.HOME);
+        goHome();
         Log.d("TEST", "MAIN VIEW ATTACHED");
     }
 
     private List<IDrawerItem> generateMenuList() {
         List<IDrawerItem> drawerItems = new ArrayList<IDrawerItem>();
-        List<IDrawerItem> menu = mainRepository.getDrawerItems();
-        drawerItems.add(0, new SectionDrawerItem().withName(R.string.accounts).withTextColorRes(R.color.gray_drawer).withDivider(false));
+        drawerItems.add(new PrimaryDrawerItem()
+                .withName(R.string.all_accounts)
+                .withDescription(String.format(Locale.getDefault(),
+                        "%.2f %s ",
+                        globalDataRepository.getUserInfo().getTotal(),
+                        globalDataRepository.getDefaultCurrency().getName()))
+                .withDescriptionTextColorRes(R.color.gray_drawer)
+                .withIcon(R.drawable.account_all)
+                .withSelectedBackgroundAnimated(true)
+                .withSelectedColorRes(R.color.primary_dark)
+                .withTextColorRes(R.color.white)
+                .withSelectedTextColorRes(R.color.tumblr_orange)
+                .withIconColorRes(R.color.white));
+        drawerItems.add(new SectionDrawerItem().withName(R.string.accounts).withTextColorRes(R.color.gray_drawer).withDivider(false));
         Me me = globalDataRepository.getUserInfo();
         for (Account account : me.getAccountList())
-            drawerItems.add(1, new PrimaryDrawerItem()
+            drawerItems.add(new PrimaryDrawerItem()
                     .withName(account.getTitle())
+                    .withSelectedBackgroundAnimated(true)
+                    .withSelectedTextColorRes(R.color.tumblr_orange)
+                    .withSelectedColorRes(R.color.primary_dark)
                     .withDescription(String.valueOf(account.getAmount())+" "+account.getCurrency())
                     .withDescriptionTextColorRes(R.color.gray_drawer)
                     .withIcon(account.getType() == 1 ? R.drawable.account_numerar : R.drawable.account_card)
@@ -119,13 +162,31 @@ public class DefaultMainPresenter implements MainPresenter {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     @Override
-    public void onNavigate(NavigateEvent navigateEvent) {
+    public void navigate(NavigateEvent navigateEvent) {
         Log.d("TEST", "EVENT BUS TRANSMITTED EVENT! ");
-        mainView.setState(navigateEvent.getTarget());
         switch (navigateEvent.getTarget()) {
+            case ACCOUNTS: mainView.goAccount(navigateEvent.getParam()); mainView.setButtonMenuState(navigateEvent.getTarget());break;
+            case HOME: goHome(); break;
             case CLOSE:
                 System.exit(0);
         }
+    }
+
+    private void goHome(){
+        Log.d("MAIN","GO HOME!");
+        mainView.goHome();
+        mainView.setTitle(context.getString(R.string.all_accounts));
+        mainView.setButtonMenuState(NavigationTarget.HOME);
+    }
+
+    private static class MenuTabs {
+        private static final int HOME = 0;
+        private static final int ACCOUNTS = 0;
+        private static final int STATS = 0;
+        private static final int SETTINGS = 0;
+    }
+    private static class DrawerItems {
+        private static final int ALL = 1;
     }
 
 }

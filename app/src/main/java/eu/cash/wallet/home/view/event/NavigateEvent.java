@@ -8,10 +8,17 @@ import eu.cash.wallet.main.view.NavigationTarget;
 
 public class NavigateEvent {
     private NavigationTarget target;
+    private int param;
     public NavigateEvent(NavigationTarget target){
         this.target = target;
     }
-
+    public NavigateEvent(NavigationTarget target, int param){
+        this.target = target;
+        this.param = param;
+    }
+    public int getParam(){
+        return this.param;
+    }
     public NavigationTarget getTarget(){
         return target;
     }

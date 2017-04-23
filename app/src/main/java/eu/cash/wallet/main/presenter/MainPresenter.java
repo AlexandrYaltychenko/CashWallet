@@ -11,5 +11,7 @@ import eu.cash.wallet.main.view.MainView;
 
 public interface MainPresenter extends BasePresenter {
     void attachView(MainView mainView, MainDrawer mainDrawer);
-    void onNavigate(NavigateEvent navigateEvent);
+    void navigate(NavigateEvent navigateEvent);
+    void onDrawerItemClick(int position);
+    boolean onBottomMenuSelected(int position);
 }

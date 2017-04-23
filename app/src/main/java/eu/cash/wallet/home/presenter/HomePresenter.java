@@ -9,4 +9,6 @@ import eu.cash.wallet.home.view.HomeView;
 
 public interface HomePresenter extends BasePresenter {
     void attachView(HomeView homeView);
+    void addCostClick();
+    void addIncomeClick();
 }

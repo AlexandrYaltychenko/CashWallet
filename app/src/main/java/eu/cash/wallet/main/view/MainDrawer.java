@@ -16,4 +16,7 @@ public interface MainDrawer {
     void setDrawerItems(List<IDrawerItem> list);
     void updateDrawerHeader(Me me, Config config);
     void changeItem(IDrawerItem item, int pos);
+    void hideDrawer();
+    void select(int position);
+    void deselect();
 }

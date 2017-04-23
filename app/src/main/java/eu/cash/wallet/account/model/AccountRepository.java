@@ -7,5 +7,5 @@ import eu.cash.wallet.account.model.callback.AccountCallback;
  */
 
 public interface AccountRepository {
-    void getAccountFullInfo(int accountId, AccountCallback accountCallback);
+    void getAccountFullInfo(String auth, int accountId, AccountCallback accountCallback);
 }

@@ -1,6 +1,8 @@
 package eu.cash.wallet.home.view;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,11 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.clans.fab.FloatingActionMenu;
+import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
+import com.github.javiersantos.materialstyleddialogs.enums.Style;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -27,10 +36,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import eu.cash.wallet.CashWalletApp;
 import eu.cash.wallet.R;
+import eu.cash.wallet.account.model.entity.Account;
 import eu.cash.wallet.account.model.entity.Event;
 import eu.cash.wallet.home.presenter.HomePresenter;
 import eu.cash.wallet.home.view.event.NavigateEvent;
 import eu.cash.wallet.login.model.entity.Currency;
+import eu.cash.wallet.main.view.MainActivity;
 import eu.cash.wallet.main.view.NavigationTarget;
 
 /**
@@ -44,6 +55,8 @@ public class HomeFragment extends Fragment implements HomeView {
     ListView listView;
     @BindView(R.id.navigateMenu)
     FloatingActionMenu actionMenu;
+    @BindView(R.id.progress)
+    View progress;
     private HeaderHolder headerHolder;
     @Inject
     HomePresenter homePresenter;
@@ -90,9 +103,20 @@ public class HomeFragment extends Fragment implements HomeView {
         homePresenter.onDestroy();
     }
 
+    @Override
+    public void displayLoading() {
+        progress.setVisibility(View.VISIBLE);
+        listView.setVisibility(View.GONE);
+    }
 
     @Override
-    public void setTotalBalance(double total, Currency currency) {
+    public void hideLoading() {
+        progress.setVisibility(View.GONE);
+        listView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void displayTotalBalance(double total, Currency currency) {
         headerHolder.balance.setText(String.format(Locale.getDefault(), "%.2f %s", total, currency.getName()));
     }
 
@@ -127,9 +151,74 @@ public class HomeFragment extends Fragment implements HomeView {
 
     }
 
+    @Override
+    public void displayIncomeDialog(List<Account> accounts) {
+        final AddDialogHolder loginDialogHolder = new AddDialogHolder(getActivity().getLayoutInflater().inflate(R.layout.add_dialog, null));
+        MaterialStyledDialog dialog = new MaterialStyledDialog.Builder(getContext())
+                .setStyle(Style.HEADER_WITH_TITLE)
+                .setTitle(R.string.sign_in_big)
+                .setHeaderDrawable(R.drawable.dialog_header)
+                .setPositiveText(R.string.add_big)
+                .setNegativeText(R.string.cancel_big)
+                .setCustomView(loginDialogHolder.view, 20, 20, 20, 0)
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .withDialogAnimation(true)
+                .build();
+        dialog.show();
+    }
+
+    @Override
+    public void displayCostDialog(List<Account> accounts) {
+
+    }
+
+    static class AddDialogHolder {
+        @BindView(R.id.email)
+        EditText email;
+        @BindView(R.id.password)
+        EditText password;
+        @BindView(R.id.spinner)
+        MaterialSpinner spinner;
+        View view;
+
+        AddDialogHolder(View view) {
+            ButterKnife.bind(this, view);
+            this.view = view;
+            spinner.setItems("Ice Cream Sandwich", "Jelly Bean", "KitKat", "Lollipop", "Marshmallow");
+            spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+                @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                    Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+                }
+            });
+        }
+
+    }
+
     @OnClick(R.id.stats)
     public void onClick() {
         actionMenu.hideMenuButton(true);
+    }
+
+    @OnClick(R.id.add_cost)
+    public void onAddCostClick() {
+        homePresenter.addCostClick();
+    }
+
+    @OnClick(R.id.add_income)
+    public void onAddIncomeClick() {
+        homePresenter.addIncomeClick();
     }
 
     static class HeaderHolder {

@@ -14,12 +14,13 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
         <TextView
-            android:text="ALL ACCOUNTS"
+            android:text="@string/all_accounts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:id="@+id/type"
             android:textColor="#fff"
+            android:maxLines="1"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
             android:textSize="18sp" />

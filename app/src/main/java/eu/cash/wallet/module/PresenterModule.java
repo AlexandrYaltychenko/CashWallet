@@ -28,7 +28,6 @@ import eu.cash.wallet.main.presenter.MainPresenter;
 public class PresenterModule {
     @Provides
     @NonNull
-    @Singleton
     public LoginPresenter provideLoginPresenter(Context context, LoginRepository loginRepository, GlobalDataRepository globalDataRepository){
         return new DefaultLoginPresenter(context, loginRepository, globalDataRepository);
     }
@@ -40,13 +39,11 @@ public class PresenterModule {
     }
     @Provides
     @NonNull
-    @Singleton
     public HomePresenter provideHomePresenter(Context context, HomeRepository homeRepository, GlobalDataRepository globalDataRepository){
         return new DefaultHomePresenter(context, homeRepository, globalDataRepository);
     }
     @Provides
     @NonNull
-    @Singleton
     public AccountPresenter provideAccountPresenter(Context context, AccountRepository accountRepository, GlobalDataRepository globalDataRepository){
         return new DefaultAccountPresenter(context, accountRepository, globalDataRepository);
     }

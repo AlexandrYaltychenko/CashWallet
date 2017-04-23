@@ -7,5 +7,6 @@ import eu.cash.wallet.account.model.entity.Account;
  */
 
 public interface AccountCallback {
-    void accountInfoFetched(Account account);
+    void onAccountInfoFetched(Account account);
+    void onConnectionError();
 }

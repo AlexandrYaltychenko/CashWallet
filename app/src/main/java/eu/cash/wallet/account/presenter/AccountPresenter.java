@@ -10,5 +10,5 @@ import eu.cash.wallet.base.BasePresenter;
  */
 
 public interface AccountPresenter extends BasePresenter{
-    void attachView(AccountView accountView);
+    void attachView(AccountView accountView, int accountId);
 }

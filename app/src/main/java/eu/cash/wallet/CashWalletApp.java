@@ -3,6 +3,8 @@ package eu.cash.wallet;
 import android.app.Application;
 import android.util.Log;
 
+import javax.inject.Inject;
+
 import eu.cash.wallet.component.AppComponent;
 import eu.cash.wallet.component.DaggerAppComponent;
 import eu.cash.wallet.login.model.entity.Config;
@@ -18,11 +20,12 @@ public class CashWalletApp extends Application {
     public AppComponent getComponent() {
         return component;
     }
-
+    @Inject GlobalDataRepository globalDataRepository;
     @Override
     public void onCreate(){
         super.onCreate();
         component = buildComponent();
+        component.inject(this);
         Log.d("CHECK",String.valueOf(component == null));
     }
     protected AppComponent buildComponent() {

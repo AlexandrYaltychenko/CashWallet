@@ -1,6 +1,7 @@
 package eu.cash.wallet.home.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,14 +9,11 @@ import java.util.List;
 import javax.inject.Inject;
 
 import eu.cash.wallet.GlobalDataRepository;
-import eu.cash.wallet.GlobalDataService;
-import eu.cash.wallet.account.model.entity.Account;
 import eu.cash.wallet.account.model.entity.Event;
 import eu.cash.wallet.home.model.HomeRepository;
 import eu.cash.wallet.home.model.callback.HomeScreenCallback;
 import eu.cash.wallet.home.model.entity.HomeScreen;
 import eu.cash.wallet.home.view.HomeView;
-import eu.cash.wallet.main.presenter.DefaultMainPresenter;
 
 /**
  * Created by alexandr on 17.04.17.
@@ -35,12 +33,16 @@ public class DefaultHomePresenter implements HomePresenter, HomeScreenCallback {
     @Override
     public void attachView(HomeView homeView){
         this.homeView = homeView;
-        homeView.setTotalBalance(globalDataRepository.getUserInfo().getTotal(),globalDataRepository.getDefaultCurrency());
+        Log.d("HOME","VIEW IS ATTACHED!");
+        homeView.displayTotalBalance(globalDataRepository.getUserInfo().getTotal(),globalDataRepository.getDefaultCurrency());
+        homeView.displayLoading();
         homeRepository.getHomeScreen(globalDataRepository.getAuthToken().getToken(),this);
     }
 
     @Override
     public void onHomeScreenFetched(HomeScreen homeScreen) {
+        if (homeView == null) return;
+        homeView.hideLoading();
         List<Event> events = homeScreen.getEvents();
         for (Event event : events)
             event.setAccount(globalDataRepository.getAccountById(event.getAccountId()));
@@ -48,6 +50,16 @@ public class DefaultHomePresenter implements HomePresenter, HomeScreenCallback {
         t.addAll(events);
         t.addAll(events);
         homeView.displayList(t);
+    }
+
+    @Override
+    public void addCostClick() {
+        homeView.displayCostDialog(globalDataRepository.getAccounts());
+    }
+
+    @Override
+    public void addIncomeClick() {
+        homeView.displayIncomeDialog(globalDataRepository.getAccounts());
     }
 
     @Override
@@ -73,6 +85,7 @@ public class DefaultHomePresenter implements HomePresenter, HomeScreenCallback {
     @Override
     public void onDestroy() {
         homeView = null;
+        Log.d("HOME","VIEW IS DETACHED");
     }
 
 
