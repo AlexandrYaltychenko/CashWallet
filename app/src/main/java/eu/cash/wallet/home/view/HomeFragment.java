@@ -22,6 +22,8 @@ import com.github.javiersantos.materialstyleddialogs.enums.Style;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -35,7 +37,9 @@ import eu.cash.wallet.R;
 import eu.cash.wallet.account.model.entity.Account;
 import eu.cash.wallet.account.model.entity.Event;
 import eu.cash.wallet.home.presenter.HomePresenter;
+import eu.cash.wallet.home.presenter.event.NavigateEvent;
 import eu.cash.wallet.login.model.entity.Currency;
+import eu.cash.wallet.main.view.NavigationTarget;
 
 /**
  * Created by alexandr on 17.04.17.
@@ -206,12 +210,12 @@ public class HomeFragment extends Fragment implements HomeView {
 
     @OnClick(R.id.add_cost)
     public void onAddCostClick() {
-        homePresenter.addCostClick();
+        EventBus.getDefault().post(new NavigateEvent(NavigationTarget.ADD));
     }
 
     @OnClick(R.id.add_income)
     public void onAddIncomeClick() {
-        homePresenter.addIncomeClick();
+        EventBus.getDefault().post(new NavigateEvent(NavigationTarget.ADD));
     }
 
     static class HeaderHolder {

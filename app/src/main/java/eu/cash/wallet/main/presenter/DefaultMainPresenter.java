@@ -2,23 +2,18 @@ package eu.cash.wallet.main.presenter;
 
 import android.content.Context;
 import android.util.Log;
-
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
 import javax.inject.Inject;
-
 import eu.cash.wallet.GlobalDataRepository;
 import eu.cash.wallet.R;
 import eu.cash.wallet.account.model.entity.Account;
@@ -176,9 +171,15 @@ public class DefaultMainPresenter implements MainPresenter {
         switch (navigateEvent.getTarget()) {
             case ACCOUNTS: mainView.goAccount(navigateEvent.getParam()); mainView.setButtonMenuState(navigateEvent.getTarget());break;
             case HOME: goHome(true); break;
+            case ADD: goAddEvent(navigateEvent.getParam()); break;
             case CLOSE:
                 System.exit(0);
         }
+    }
+
+    private void goAddEvent(int accountId){
+        mainView.goAdd(accountId);
+        mainView.setTitle(context.getString(R.string.add_event));
     }
 
     private void goHome(boolean animated){

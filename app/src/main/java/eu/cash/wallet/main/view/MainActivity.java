@@ -32,6 +32,7 @@ import butterknife.OnClick;
 import eu.cash.wallet.CashWalletApp;
 import eu.cash.wallet.R;
 import eu.cash.wallet.account.view.AccountFragment;
+import eu.cash.wallet.event.view.EventFragment;
 import eu.cash.wallet.login.model.entity.Me;
 import eu.cash.wallet.home.view.HomeFragment;
 import eu.cash.wallet.home.presenter.event.NavigateEvent;
@@ -43,7 +44,6 @@ import eu.cash.wallet.main.presenter.MainPresenter;
  * Created by alexandr on 16.04.17.
  */
 
-@SuppressWarnings("deprecation")
 public class MainActivity extends AppCompatActivity implements MainView, MainDrawer, Drawer.OnDrawerItemClickListener, View.OnClickListener {
     private Drawer drawer;
     private HeaderHolder headerHolder;
@@ -192,6 +192,11 @@ public class MainActivity extends AppCompatActivity implements MainView, MainDra
     @Override
     public void goHome(boolean animated) {
         navigateFragment(HomeFragment.newInstance(), animated);
+    }
+
+    @Override
+    public void goAdd(int accountId) {
+        navigateFragment(EventFragment.newInstance(),true);
     }
 
     @Override

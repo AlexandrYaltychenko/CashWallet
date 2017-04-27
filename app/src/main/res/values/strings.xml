@@ -20,4 +20,5 @@
     <string name="menu_stats">Statistics</string>
     <string name="all_accounts">All Accounts</string>
     <string name="add_big">ADD</string>
+    <string name="add_event">Add Event</string>
 </resources>
