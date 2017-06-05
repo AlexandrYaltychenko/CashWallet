@@ -1,6 +1,10 @@
 package eu.cash.wallet.login.model;
 
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import java.io.IOException;
 
 import javax.inject.Inject;
 
@@ -11,6 +15,7 @@ import eu.cash.wallet.login.model.callback.ConfigCallback;
 import eu.cash.wallet.login.model.callback.UserInfoCallback;
 import eu.cash.wallet.login.model.response.AuthResponse;
 import eu.cash.wallet.login.model.response.ConfigResponse;
+import eu.cash.wallet.utils.HttpResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,13 +53,26 @@ public class DefaultLoginRepository implements LoginRepository {
     }
 
     @Override
-    public void register(String email, String password, String nickname, final AuthCallbacks.RegisterCallback callback) {
+    public void register(String email, String password, String nickname, @NonNull final AuthCallbacks.RegisterCallback callback) {
         Call<AuthResponse> call = authService
-                .getAuthFromLogin(email, password);
+                .getAuthFromRegistration(email, password, nickname);
         call.enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                callback.onRegistrationSucceed(response.body().getAuth());
+                if (response == null)
+                    Log.d("REGDEV", "RESPONSE NULL");
+                if (response != null && response.isSuccessful()) {
+                    callback.onRegistrationSucceed(response.body().getAuth());
+                } else if (response != null) {
+                    try {
+                        callback.onRegistrationFailed(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    callback.onRegistrationFailed("Unknown error");
+                }
+
             }
 
             @Override

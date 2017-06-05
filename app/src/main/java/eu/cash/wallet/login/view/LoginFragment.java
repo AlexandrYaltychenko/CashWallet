@@ -1,7 +1,9 @@
 package eu.cash.wallet.login.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +16,8 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.github.javiersantos.materialstyleddialogs.enums.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.SuperToast;
 
 import javax.inject.Inject;
 
@@ -21,7 +25,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.cash.wallet.CashWalletApp;
 import eu.cash.wallet.R;
+import eu.cash.wallet.login.model.entity.DialogData;
 import eu.cash.wallet.login.presenter.LoginPresenter;
+
+import static com.github.johnpersano.supertoasts.library.Style.DURATION_LONG;
 
 /**
  * Created by alexandr on 01.04.17.
@@ -103,9 +110,9 @@ public class LoginFragment extends Fragment implements LoginView {
     }
 
     @Override
-    public void displayLoginForm() {
+    public void displayLoginForm(@Nullable DialogData dialogData) {
         if (dialog != null) return;
-        final LoginDialogHolder loginDialogHolder = new LoginDialogHolder(getActivity().getLayoutInflater().inflate(R.layout.login_dialog, null));
+        final LoginDialogHolder loginDialogHolder = new LoginDialogHolder(dialogData, getActivity().getLayoutInflater().inflate(R.layout.login_dialog, null));
         dialog = new MaterialStyledDialog.Builder(getActivity())
                 .setStyle(Style.HEADER_WITH_TITLE)
                 .setTitle(R.string.sign_in_big)
@@ -132,7 +139,7 @@ public class LoginFragment extends Fragment implements LoginView {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         LoginFragment.this.dialog = null;
-                        displayRegisterForm();
+                        displayRegisterForm(null);
                     }
                 })
                 .withDialogAnimation(true)
@@ -141,9 +148,9 @@ public class LoginFragment extends Fragment implements LoginView {
     }
 
     @Override
-    public void displayRegisterForm() {
+    public void displayRegisterForm(@Nullable DialogData dialogData) {
         if (dialog != null) return;
-        final RegisterDialogHolder registerDialogHolder = new RegisterDialogHolder(getActivity().getLayoutInflater().inflate(R.layout.register_dialog, null));
+        final RegisterDialogHolder registerDialogHolder = new RegisterDialogHolder(dialogData, getActivity().getLayoutInflater().inflate(R.layout.register_dialog, null));
         dialog = new MaterialStyledDialog.Builder(getActivity())
                 .setStyle(Style.HEADER_WITH_TITLE)
                 .setTitle(R.string.register_big)
@@ -156,7 +163,7 @@ public class LoginFragment extends Fragment implements LoginView {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         LoginFragment.this.dialog = null;
-                        displayLoginForm();
+                        displayLoginForm(null);
                     }
                 })
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -165,7 +172,8 @@ public class LoginFragment extends Fragment implements LoginView {
                         LoginFragment.this.dialog = null;
                         loginPresenter.submitRegisterForm(registerDialogHolder.email.getText().toString(),
                                 registerDialogHolder.password.getText().toString(),
-                                registerDialogHolder.nickname.getText().toString());
+                                registerDialogHolder.nickname.getText().toString(),
+                                registerDialogHolder.remember.isChecked());
 
                     }
                 })
@@ -173,7 +181,7 @@ public class LoginFragment extends Fragment implements LoginView {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         LoginFragment.this.dialog = null;
-                        displayLoginForm();
+                        displayLoginForm(null);
                     }
                 })
                 .withDialogAnimation(true)
@@ -195,9 +203,14 @@ public class LoginFragment extends Fragment implements LoginView {
         CheckBox remember;
         View view;
 
-        LoginDialogHolder(View view) {
+        LoginDialogHolder(@Nullable DialogData dialogData, View view) {
             ButterKnife.bind(this, view);
             this.view = view;
+            if (dialogData != null) {
+                email.setText(dialogData.getEmail());
+                password.setText(dialogData.getPassword());
+                remember.setChecked(dialogData.isRemember());
+            }
         }
 
     }
@@ -209,12 +222,27 @@ public class LoginFragment extends Fragment implements LoginView {
         EditText password;
         @BindView(R.id.nickname)
         EditText nickname;
+        @BindView(R.id.remember)
+        CheckBox remember;
         View view;
 
 
-        RegisterDialogHolder(View view) {
+        RegisterDialogHolder(@Nullable DialogData dialogData, View view) {
             ButterKnife.bind(this, view);
             this.view = view;
+            if (dialogData != null) {
+                email.setText(dialogData.getEmail());
+                password.setText(dialogData.getPassword());
+                nickname.setText(dialogData.getNickname());
+                remember.setChecked(dialogData.isRemember());
+                if (dialogData.getErrorMsg() != null) {
+                    Context context = view.getContext();
+                    SuperToast.create(context, dialogData.getErrorMsg(), DURATION_LONG)
+                            .setColor(context.getResources().getColor(R.color.red))
+                            .setTextColor(context.getResources().getColor(R.color.white))
+                            .show();
+                }
+            }
         }
 
     }

@@ -8,7 +8,7 @@ import eu.cash.wallet.login.view.LoginView;
  */
 
 public interface LoginPresenter extends BasePresenter {
-    void submitRegisterForm(String email, String password, String nickname);
+    void submitRegisterForm(String email, String password, String nickname, boolean save);
     void submitLoginForm(String email, String password, boolean save);
     void attachView(LoginView loginView);
 }

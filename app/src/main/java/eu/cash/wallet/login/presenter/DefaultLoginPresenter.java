@@ -9,6 +9,7 @@ import org.greenrobot.eventbus.EventBus;
 import javax.inject.Inject;
 
 import eu.cash.wallet.GlobalDataRepository;
+import eu.cash.wallet.login.model.entity.DialogData;
 import eu.cash.wallet.login.model.entity.Me;
 import eu.cash.wallet.login.model.callback.AuthCallbacks;
 import eu.cash.wallet.login.model.LoginRepository;
@@ -31,6 +32,7 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
     private GlobalDataRepository globalDataRepository;
     private Context context;
     private Config config;
+    private DialogData dialogData;
 
     @Inject
     public DefaultLoginPresenter(Context context, LoginRepository loginRepository, GlobalDataRepository globalDataRepository) {
@@ -40,12 +42,17 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
     }
 
     @Override
-    public void submitRegisterForm(String email, String password, String nickname) {
+    public void submitRegisterForm(String email, String password, String nickname, boolean save) {
+        dialogData = new DialogData(email, password, nickname, save, null);
+    if (save)
+        globalDataRepository.saveCredentials(email, password);
+        loginRepository.register(email, password, nickname, this);
 
     }
 
     @Override
     public void submitLoginForm(String email, String password, boolean save) {
+        dialogData = new DialogData(email, password, null, save, null);
         if (save)
             globalDataRepository.saveCredentials(email, password);
         loginRepository.login(email, password, this);
@@ -96,12 +103,17 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
 
     @Override
     public void onRegistrationSucceed(Auth auth) {
-
+        globalDataRepository.saveAuthToken(auth.getToken(),auth.getExp());
+        globalDataRepository.loadUserInfo(auth.getToken(),this);
     }
 
     @Override
     public void onRegistrationFailed(String msg) {
-
+        Log.d("REGDEV", "REG ERROR = "+msg);
+        if (dialogData != null){
+            dialogData.setErrorMsg(msg);
+        }
+        loginView.displayRegisterForm(dialogData);
     }
 
     @Override
@@ -118,7 +130,7 @@ public class DefaultLoginPresenter implements LoginPresenter, AuthCallbacks.Logi
             Log.d("TEST","SIGNING IN WITH STORED CREDENTIALS");
         }
         else
-            loginView.displayLoginForm();
+            loginView.displayLoginForm(null);
     }
 
     @Override

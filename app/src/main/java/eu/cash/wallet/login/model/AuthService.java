@@ -20,6 +20,6 @@ public interface AuthService {
     @POST("login")
     Call<AuthResponse> getAuthFromLogin(@Part("email") String email, @Part("password") String password);
     @Multipart
-    @POST("register")
-    Call<AuthResponse> getAuthFromRegistration(@Part("email") String email, @Part("password") String password, @Part("nickname") String lang);
+    @POST("dev/register")
+    Call<AuthResponse> getAuthFromRegistration(@Part("email") String email, @Part("password") String password, @Part("nickname") String nickname);
 }
