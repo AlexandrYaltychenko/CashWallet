@@ -71,6 +71,7 @@ public class HomeFragment extends Fragment implements HomeView {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, rootView);
         headerHolder = new HeaderHolder(header);
+        Log.d("CRASHDEV","HOME FRAGMENT");
         //header.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
         ((CashWalletApp) getContext().getApplicationContext()).getComponent().inject(this);
         return rootView;

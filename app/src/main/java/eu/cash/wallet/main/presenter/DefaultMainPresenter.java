@@ -103,6 +103,7 @@ public class DefaultMainPresenter implements MainPresenter {
         this.mainView = mainView;
         this.mainView.hideUI();
         this.mainDrawer = mainDrawer;
+        Log.d("CRASHDEV","ATTACHED MAINACTIVITY");
         EventBus.getDefault().register(this);
         mainView.goLogin();
     }
